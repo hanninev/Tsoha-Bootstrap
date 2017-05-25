@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+   <p>Tervetuloa verkkokauppaan</p>
+
+  <h1>Saatavilla olevat tuotteet</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tuote</th>
+        <th>Kuva</th>
+        <th>Hinta</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>
+        <table>
+        <tr><b><a href="#">24-vaihteinen Helkama</a></b></tr>
+        <tr><p>Tästä hyvä polkupyörä kelle tahansa!</p></tr>
+        <tr>Kategoria: <i>Polkupöyrät</i></tr>
+        </table>
+        </td>
+        <td>[kuva]</td>
+        <td>9,00€</td>
+        <th><a class="btn btn-default btn-sm" href="#">Lisää ostoskoriin</a></th>
+      </tr>
+
+    </tbody>
+  </table>
+{% endblock %}

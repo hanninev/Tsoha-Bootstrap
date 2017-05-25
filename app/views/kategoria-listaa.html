@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Hallinnoi kategorioita</h1>
+
+  <p><a href="#" class="btn btn-default">Lisää uusi kategoria</a> </p>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Kategoria</th>
+        <th>Yläkategoria</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td><b>Polkupöyrät</b></td>
+        <td>Vapaa-aika</td>
+        <th><a class="btn btn-primary btn-sm" href="#">Muokkaa</a></th>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+      </tr>
+    </tbody>
+  </table>
+
+
+{% endblock %}

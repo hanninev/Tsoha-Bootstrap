@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h1>Omat tilaukseni</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Tilausnumero</th>
+        <th>Toimitusosoite</th>
+        <th>Hinta</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><a href="#">452</a></td>
+        <td>Latotie 1 A 3, 00100 Helsinki</td>
+        <td>10,00€</td>
+        <td><label class="label btn-danger">odottaa käsittelyä</label></td>
+      </tr>
+    </tbody>
+  </table>
+
+{% endblock %}

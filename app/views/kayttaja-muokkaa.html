@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa omia tietojasi</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Etunimi</label>
+      <input type="text" class="form-control" value="Jaska">
+    </div>
+    <div class="form-group">
+      <label>Sukunimi</label>
+      <input type="text" class="form-control" value="Jokunen">
+    </div>
+    <div class="form-group">
+      <label>Puhelinnumero</label>
+      <input type="text" class="form-control" value="0503425642">
+    </div>
+        <div class="form-group">
+      <label>Sähköpostiosoite</label>
+      <input type="text" class="form-control" value="jaska.jokunen@jotain.com">
+    </div>
+        <div class="form-group">
+      <label>Kotiosoite</label>
+      <input type="text" class="form-control" value="Kaislatie 1 A 3">
+    </div>
+        <div class="form-group">
+      <label>Postinumero</label>
+      <input type="text" class="form-control" value="00100">
+    </div>
+       <div class="form-group">
+      <label>Postitoimipaikka</label>
+      <input type="text" class="form-control" value="Helsinki">
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>  <button class="btn btn-danger">Poista käyttäjätilini</button>
+    </div>
+  </form>
+{% endblock %}

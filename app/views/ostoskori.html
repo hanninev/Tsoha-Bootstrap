@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Ostoskorin sisältö</h1>
+
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Nimi</th>
+        <th>Hinta</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td><b>Polkupöyrä</b></td>
+        <td>9,00€</td>
+        <th><a class="btn btn-default btn-sm" href="#">Poista ostoskorista</a></th>
+      </tr>
+      <tr>
+        <td><b>KOKONAISHINTA</b></td>
+        <td>9,00€</td>
+      <td></td>
+      </tr>
+    </tbody>
+  </table>
+
+      <p><a href="#" class="btn btn-default">Tee lisää ostoksia</a> </p>
+
+ <form>
+    <h2>Yhteystietosi</h2>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input type="text" class="form-control" value="">
+    </div>
+    <div class="form-group">
+      <label>Puhelinnumero</label>
+      <input type="text" class="form-control" value="">
+    </div>
+    <div class="form-group">
+      <label>Sähköpostiosoite</label>
+       <input type="text" class="form-control" value="">
+    </div>
+        <div class="form-group">
+      <label>Toimitusosoite</label>
+       <input type="text" class="form-control" value="">
+    </div>
+        <div class="form-group">
+      <label>Postinumero</label>
+       <input type="text" class="form-control" value="">
+    </div>
+    <div class="form-group">
+      <label>Postitoimipaikka</label>
+       <input type="text" class="form-control" value="">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tee tilaus</button>
+    </div>
+  </form>
+
+{% endblock %}

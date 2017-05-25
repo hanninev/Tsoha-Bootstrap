@@ -5,14 +5,19 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 source $DIR/config/environment.sh
 
-echo "Siirretään tiedostot Melkinpaasiin..."
+echo "Siirretään tiedostot users-palvelimelle..."
 
-# Siirretään ensin Melkipaasiin ja sitten yhteys Melkkiin
+# Tämä komento siirtää tiedostot palvelimelta
+rsync -z -r $DIR/app $DIR/assets $DIR/config $DIR/lib $DIR/sql $DIR/vendor $DIR/index.php $DIR/composer.json $USERNAME@users2017.cs.helsinki.fi:htdocs/$PROJECT_FOLDER
 
-rsync -avH /home/hanninev/NetBeansProjects/Verkkokauppa/ -e ssh hanninev@melkinpaasi.cs.helsinki.fi:/home/hanninev/Tsoha
-ssh hanninev@melkinpaasi.cs.helsinki.fi "
-cd Tsoha/
-bash deployo.sh
+echo "Valmis!"
+
+echo "Suoritetaan komento php composer.phar dump-autoload..."
+
+# Suoritetaan php composer.phar dump-autoload
+ssh $USERNAME@users2017.cs.helsinki.fi "
+cd htdocs/$PROJECT_FOLDER
+php composer.phar dump-autoload
 exit"
 
-echo "Valmis! Tiedostot siirretty Melkinpaasiin"
+echo "Valmis! Sovelluksesi on nyt valmiina osoitteessa $USERNAME.users.cs.helsinki.fi/$PROJECT_FOLDER"
