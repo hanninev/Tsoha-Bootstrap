@@ -22,7 +22,7 @@ Kun käyttäjä on tehnyt tilauksen, tilatut tuotteet varataan kyseiselle käytt
 * [Listaa omat tilaukseni](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus/omat)
 
 ### Ylläpitäjän näkymät:
-* [Listaa saapuneet tilaukset](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus/lista)
+* [Listaa saapuneet tilaukset](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus/saapuneet)
 * [Näytä yksittäinen tilaus](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus)
 * [Tilauksen muokkaaminen](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus/muokkaa)
 * [Tuotteen muokkaaminen](http://hanninev.users.cs.helsinki.fi/kauppa/tuote/muokkaa)
