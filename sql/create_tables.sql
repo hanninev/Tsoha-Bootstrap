@@ -22,7 +22,9 @@ nimi varchar NOT NULL
 
 CREATE Table Kategoria(
 id SERIAL PRIMARY KEY,
-nimi varchar(50) NOT NULL
+nimi varchar(50) NOT NULL,
+ylakategoria_id INTEGER REFERENCES Kategoria(id),
+kuvaus varchar
 );
 
 CREATE Table Tuote(
@@ -56,5 +58,6 @@ aika DATE
 CREATE Table Tuoteilmentyma(
 id SERIAL PRIMARY KEY,
 tuote_id INTEGER REFERENCES Tuote(id),
-tilaus_id INTEGER REFERENCES Tilaus(id)
+tilaus_id INTEGER REFERENCES Tilaus(id),
+hinta integer NOT NULL
 );

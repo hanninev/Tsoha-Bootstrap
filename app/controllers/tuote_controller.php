@@ -2,7 +2,13 @@
 
   class TuoteController extends BaseController{
 
-    public static function tuoteNayta(){
+    public static function index(){
+      $tuotteet = Tuote::listaaKaikki();
+      View::make('index.html', array('tuotteet' => $tuotteet));
+    }
+
+    public static function tuoteNayta($id){
+      //toteutus kesken
       View::make('tuote-nayta.html');
     }
 

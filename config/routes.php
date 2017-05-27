@@ -1,7 +1,7 @@
 <?php
 
   $routes->get('/', function() {
-    HelloWorldController::index();
+    TuoteController::index();
   });
 
   $routes->get('/ostoskori', function() {
@@ -24,8 +24,8 @@
     TilausController::tilausMuokkaa();
   });
   
-  $routes->get('/tuote', function() {
-    TuoteController::tuoteNayta();
+  $routes->get('/tuote/:id', function($id) {
+    TuoteController::tuoteNayta($id);
   });
 
   $routes->get('/tuote/muokkaa', function() {
