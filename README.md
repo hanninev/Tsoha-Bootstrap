@@ -17,7 +17,7 @@ Kun käyttäjä on tehnyt tilauksen, tilatut tuotteet varataan kyseiselle käytt
 
 ### Käyttäjän näkymät:
 * [Ostoskori](http://hanninev.users.cs.helsinki.fi/kauppa/ostoskori)
-* [Näytä yksittäinen tuote](http://hanninev.users.cs.helsinki.fi/kauppa/tuote)
+* [Näytä yksittäinen tuote](http://hanninev.users.cs.helsinki.fi/kauppa/tuote/1)
 * [Muokkaa omia tietojani](http://hanninev.users.cs.helsinki.fi/kauppa/kayttaja/muokkaa)
 * [Listaa omat tilaukseni](http://hanninev.users.cs.helsinki.fi/kauppa/tilaus/omat)
 
