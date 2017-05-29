@@ -1,53 +1,65 @@
 <?php
 
   $routes->get('/', function() {
-    TuoteController::index();
+    ProductController::index();
   });
 
   $routes->get('/ostoskori', function() {
-    TilausController::ostoskori();
+    OrderController::cart();
   });
 
   $routes->get('/tilaus/saapuneet', function() {
-    TilausController::tilausSaapuneet();
+    OrderController::inbox();
   });
 
   $routes->get('/tilaus', function() {
-    TilausController::tilausNayta();
+    OrderController::show();
   });
 
   $routes->get('/tilaus/omat', function() {
-    TilausController::tilausOmat();
+    OrderController::myOrders();
   });
 
   $routes->get('/tilaus/muokkaa', function() {
-    TilausController::tilausMuokkaa();
+    OrderController::edit();
+  });
+
+  $routes->get('/tuote', function() {
+    ProductController::index();
+  });
+
+  $routes->post('/tuote', function() {
+    ProductController::store();
+  });
+
+  $routes->get('/tuote/uusi', function() {
+    ProductController::create();
   });
   
   $routes->get('/tuote/:id', function($id) {
-    TuoteController::tuoteNayta($id);
+    ProductController::show($id);
   });
 
-  $routes->get('/tuote/muokkaa', function() {
-    TuoteController::tuoteMuokkaus();
+  $routes->get('/tuote/:id/muokkaa', function($id) {
+    ProductController::edit($id);
   });
 
-  $routes->get('/tuote/lisaa', function() {
-    TuoteController::tuoteLisays();
+  $routes->post('/tuote/:id/muokkaa', function() {
+    ProductController::update($id);
   });
 
   $routes->get('/kayttaja/muokkaa', function() {
-    KayttajaController::kayttajaMuokkaa();
+    UserController::edit();
   });
 
   $routes->get('/kategoria/lisaa', function() {
-    KategoriaController::kategoriaLisays();
+    CategoryController::add();
   });
 
   $routes->get('/kategoria/muokkaa', function() {
-    KategoriaController::kategoriaMuokkaa();
+    CategoryController::edit();
   });
 
   $routes->get('/kategoria/listaa', function() {
-    KategoriaController::kategoriaListaa();
+    CategoryController::list();
   });

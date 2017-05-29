@@ -1,6 +1,6 @@
 <?php
 
-  class Tuote extends BaseModel{
+  class Product extends BaseModel{
 
   	public $id, $kategoria_id, $nimi, $kuva, $kuvaus, $hinta;
 
@@ -8,7 +8,7 @@
   		parent::__construct($attributes);
   	}
 
-  	public static function listaaKaikki() {
+  	public static function list() {
   		$query = DB::connection()->prepare('SELECT * FROM Tuote');
   		$query->execute();
   		$rows = $query->fetchAll();
@@ -26,10 +26,10 @@
   		return $tuotteet;
   	}
 
-  	public static function nayta($id) {
+  	public static function show($id) {
   		$query = DB::connection()->prepare('SELECT * FROM Tuote WHERE id = :id LIMIT 1');
   		$query->execute(array('id' => $id));
-  		$rows = $query->fetch();
+  		$row = $query->fetch();
 
   		if ($row) {
   			$tuote = new Tuote(array(
@@ -43,4 +43,18 @@
   		}
   		return null;
   	}
+
+    public function save(){
+      $query = DB::connection()->prepare('INSERT INTO Tuote (nimi, kuvaus, hinta) VALUES (:nimi, :kuvaus, :hinta) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'hinta' => $this->hinta));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
+        public function update($id){
+      $query = DB::connection()->prepare('UPDATE Tuote SET nimi = :nimi, kuvaus = :kuvaus, hinta = :hinta) WHERE id = :id');
+        $query->execute(array('nimi' => $this->nimi, 'kuvaus' => $this->kuvaus, 'hinta' => $this->hinta));
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
   }
