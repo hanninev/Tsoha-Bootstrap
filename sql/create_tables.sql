@@ -1,63 +1,64 @@
 -- Lisää CREATE TABLE lauseet tähän tiedostoon
-CREATE Table Tila(
+CREATE Table Status(
 id SERIAL PRIMARY KEY,
-nimi varchar NOT NULL
+name varchar NOT NULL
 );
 
-CREATE Table Kayttaja(
+CREATE Table User1(
 id SERIAL PRIMARY KEY,
-etunimi varchar(50) NOT NULL,
-sukunimi varchar(50) NOT NULL,
-puhelinnumero varchar(10) NOT NULL,
-sahkopostiosoite varchar,
-kotiosoite varchar NOT NULL,
-postinumero integer NOT NULL,
-postitoimipaikka varchar NOT NULL
+forename varchar(50) NOT NULL,
+surname varchar(50) NOT NULL,
+phonenumber varchar(10) NOT NULL,
+enmail varchar,
+address varchar NOT NULL,
+zipcode integer NOT NULL,
+postoffice varchar NOT NULL
 );
 
-CREATE Table Rooli(
+CREATE Table Role(
 id SERIAL PRIMARY KEY,
-nimi varchar NOT NULL
+name varchar NOT NULL
 );
 
-CREATE Table Kategoria(
+CREATE Table Category(
 id SERIAL PRIMARY KEY,
-nimi varchar(50) NOT NULL,
-ylakategoria_id INTEGER REFERENCES Kategoria(id),
-kuvaus varchar
+name varchar(50) NOT NULL,
+parentcategory_id INTEGER REFERENCES Category(id),
+description varchar
 );
 
-CREATE Table Tuote(
+CREATE Table Product(
 id SERIAL PRIMARY KEY,
-kategoria_id INTEGER REFERENCES Kategoria(id),
-nimi varchar(50) NOT NULL,
-kuva varchar(50),
-kuvaus varchar,
-hinta integer NOT NULL
+category_id INTEGER REFERENCES Category(id),
+name varchar(50) NOT NULL,
+photo varchar(50),
+description varchar,
+price integer NOT NULL,
+available boolean
 );
 
-CREATE Table KayttajaRooli(
-kayttaja_id INTEGER REFERENCES Kayttaja(id),
-rooli_id INTEGER REFERENCES Rooli(id)
+CREATE Table UserRole(
+user1_id INTEGER REFERENCES User1(id),
+role_id INTEGER REFERENCES Role(id)
 );
 
-CREATE TABLE Tilaus(
+CREATE TABLE Order1(
 id SERIAL PRIMARY KEY,
-kayttaja_id INTEGER REFERENCES Kayttaja(id),
-tila_id INTEGER REFERENCES Tila(id),
-etunimi varchar(50) NOT NULL,
-sukunimi varchar(50) NOT NULL,
-puhelinnumero varchar(10) NOT NULL,
-sahkopostiosoite varchar,
-toimitusosoite varchar NOT NULL,
-postinumero integer NOT NULL,
-postitoimipaikka varchar NOT NULL,
-aika DATE
+user1_id INTEGER REFERENCES User1(id),
+status_id INTEGER REFERENCES Status(id),
+forename varchar(50) NOT NULL,
+surname varchar(50) NOT NULL,
+phonenumber varchar(10) NOT NULL,
+email varchar,
+delivery_address varchar NOT NULL,
+zipcode integer NOT NULL,
+postoffice varchar NOT NULL,
+time DATE
 );
 
-CREATE Table Tuoteilmentyma(
+CREATE Table ProductInstance(
 id SERIAL PRIMARY KEY,
-tuote_id INTEGER REFERENCES Tuote(id),
-tilaus_id INTEGER REFERENCES Tilaus(id),
-hinta integer NOT NULL
+product_id INTEGER REFERENCES Product(id),
+order1_id INTEGER REFERENCES Order1(id),
+price integer NOT NULL
 );

@@ -3,13 +3,13 @@
   class ProductController extends BaseController{
 
     public static function index(){
-      $tuotteet = Product::list();
-      View::make('index.html', array('tuotteet' => $tuotteet));
+      $products = Product::list();
+      View::make('index.html', array('products' => $products));
     }
 
     public static function show($id){
-      $tuote = Product::show($id);
-      View::make('product-show.html', array('tuote' => $tuote));
+      $product = Product::show($id);
+      View::make('product-show.html', array('product' => $product));
     }
 
     public static function edit($id){
@@ -22,9 +22,9 @@
 
       $attributes = array(
         'id' => $id,
-        'nimi' => $params['nimi'],
-        'hinta' => $params['hinta'],
-        'kuvaus' => $params['kuvaus']
+        'name' => $params['name'],
+        'price' => $params['price'],
+        'description' => $params['description']
         );
     
       $product = new Product($attributes);
@@ -41,9 +41,9 @@
     public static function store(){
       $params = $_POST;
       $product = new Product(array(
-        'nimi' => $params['nimi'],
-        'hinta' => $params['hinta'],
-        'kuvaus' => $params['kuvaus']
+        'name' => $params['name'],
+        'price' => $params['price'],
+        'description' => $params['description']
         ));
 
       $product->save();

@@ -4,7 +4,7 @@
   {{message}}
 </div>
 
-  <h1>{{tuote.nimi}}</h1>
+  <h1>{{product.name}}</h1>
 
   <p>
     <button class="btn btn-default">Lisää ostoskoriin</button> <button class="btn btn-default">Muokkaa tuotetta</button> <button class="btn btn-danger">Poista ostoskorista</button>
@@ -12,7 +12,7 @@
 
 
   <ul>
-    <li><strong>Hinta:</strong> {{tuote.hinta}}</li>
+    <li><strong>Hinta:</strong> {{product.price}}</li>
     <li><strong>Varastossa:</strong> 20</li>
     <li><strong>Kategoria:</strong> Polkupyörät</li>
   </ul>
@@ -20,6 +20,6 @@
   <img src="https://cdn.pixabay.com/photo/2013/07/13/13/46/bicycle-161524_960_720.png" alt="" style="width:600px;height:400px;">
 
   <p>
-  {{tuote.kuvaus}}
+  {{product.description}}
   </p>
 {% endblock %}
