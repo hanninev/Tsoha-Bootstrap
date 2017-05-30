@@ -9,7 +9,8 @@
 
     public static function show($id){
       $product = Product::show($id);
-      View::make('product-show.html', array('product' => $product));
+      $category = Category::show($product->category_id);
+      View::make('product-show.html', array('product' => $product, 'category' => $category));
     }
 
     public static function edit($id){
