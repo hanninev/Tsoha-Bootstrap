@@ -7,17 +7,22 @@
   <h1>{{product.name}}</h1>
 
   <p>
-    <button class="btn btn-default">Lisää ostoskoriin</button> <button class="btn btn-default">Muokkaa tuotetta</button> <button class="btn btn-danger">Poista ostoskorista</button>
+    <form method="post" action="" style="display: inline-block;"> <button type="submit" class="btn btn-default">Lisää ostoskoriin</button>
+    </form> <form method="get" action="{{base_path}}/tuote/{{product.id}}/muokkaa" style="display: inline-block;"> <button type="submit" class="btn btn-default">Muokkaa tuotetta</button>
+    </form> <button class="btn btn-danger">Poista ostoskorista</button>
   </p>
 
+    {% if product.available %}
+    <span class="label label-success">Myynnissä</span>
+    {% else %}
+    <span class="label label-danger">Ei myynnissä</span>
+    {% endif %}
 
   <ul>
     <li><strong>Hinta:</strong> {{product.price}}</li>
     <li><strong>Varastossa:</strong> {{product.count}}</li>
-    <li><strong>Kategoria:</strong> {{category.name}}</li>
+    <li><strong>Kategoria:</strong> {{product.category.name}}</li>
   </ul>
-
-  <img src="https://cdn.pixabay.com/photo/2013/07/13/13/46/bicycle-161524_960_720.png" alt="" style="width:600px;height:400px;">
 
   <p>
   {{product.description}}

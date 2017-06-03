@@ -44,7 +44,7 @@
     ProductController::edit($id);
   });
 
-  $routes->post('/tuote/:id/muokkaa', function() {
+  $routes->post('/tuote/:id/muokkaa', function($id) {
     ProductController::update($id);
   });
 

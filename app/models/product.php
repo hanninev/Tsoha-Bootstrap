@@ -2,14 +2,15 @@
 
   class Product extends BaseModel{
 
-  	public $id, $category_id, $count, $category, $name, $photo, $description, $price, $available;
+  	public $id, $category, $name, $photo, $description, $price, $available, $validators;
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
+      $this->validators = array('validate_name');
   	}
 
   	public static function list() {
-  		$query = DB::connection()->prepare('SELECT Product.id, Product.name, Product.description, Product.price, Category.name AS category, Category.id AS category_id FROM Product, Category WHERE Product.category_id = Category.id');
+  		$query = DB::connection()->prepare('SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id');
   		$query->execute();
   		$rows = $query->fetchAll();
   		$products = array();
@@ -17,11 +18,11 @@
   		foreach ($rows as $row) {
   			$products[] = new Product(array(
   				'id' => $row['id'],
-          'category_id' => $row['category_id'],
-  				'category' => $row['category'],
+  				'category' => Category::show($row['category_id']),
   				'name' => $row['name'],
   				'description' => $row['description'],
-  				'price' => $row['price']
+  				'price' => $row['price'],
+          'available' => $row['available']
   				));
   		}
   		return $products;
@@ -39,11 +40,11 @@
   		if ($row) {
   			$product = new Product(array(
   				'id' => $row['id'],
-          'category_id' => $row['category_id'],
+          'category' => Category::show($row['category_id']),
   				'name' => $row['name'],
   				'description' => $row['description'],
   				'price' => $row['price'],
-          'count' => $row2['count']
+          'available' => $row['available']
   				));
 
   			return $product;
@@ -52,16 +53,23 @@
   	}
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Product (name, description, price) VALUES (:name, :description, :price) RETURNING id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'price' => $this->price));
+      $query = DB::connection()->prepare('INSERT INTO Product (name, category_id, description, price, available) VALUES (:name, :category_id, :description, :price, :available) RETURNING id');
+        $query->execute(array('name' => $this->name, 'category_id' => $this->category, 'description' => $this->description, 'price' => $this->price, 'available' => $this->available));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
-        public function update($id){
-      $query = DB::connection()->prepare('UPDATE Product SET name = :name, description = :description, price = :price) WHERE id = :id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'price' => $this->price));
+        public function update(){
+      $query = DB::connection()->prepare('UPDATE Product SET name = :name, category_id = :category_id, description = :description, price = :price, available = :available WHERE id = :id');
+        $query->execute(array('name' => $this->name, 'category_id' => $this->category, 'description' => $this->description, 'price' => $this->price, 'available' => $this->available, 'id' => $this->id));
         $row = $query->fetch();
-        $this->id = $row['id'];
+    }
+
+    public function validate_name() {
+      $errors = array();
+      if($this->name == '' || $this->name == null) {
+        $errors[] = 'Nimi ei saa olla tyhjä!';
+      }
+      return $errors;
     }
   }

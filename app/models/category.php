@@ -15,7 +15,7 @@
   		$categories = array();
 
   		foreach ($rows as $row) {
-  			$categories[] = new Product(array(
+  			$categories[] = new Category(array(
   				'id' => $row['id'],
   				'parentcategory_id' => $row['parentcategory_id'],
   				'name' => $row['name'],

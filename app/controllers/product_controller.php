@@ -9,13 +9,13 @@
 
     public static function show($id){
       $product = Product::show($id);
-      $category = Category::show($product->category_id);
-      View::make('product-show.html', array('product' => $product, 'category' => $category));
+      View::make('product-show.html', array('product' => $product));
     }
 
     public static function edit($id){
       $product = Product::show($id);
-      View::make('product-edit.html', array('product' => $product));
+      $categories = Category::list();
+      View::make('product-edit.html', array('attributes' => $product, 'categories' => $categories));
     }
 
     public static function update($id) {
@@ -23,36 +23,60 @@
 
       $attributes = array(
         'id' => $id,
+        'category' => $params['category'],
         'name' => $params['name'],
-        'price' => $params['price'],
-        'description' => $params['description']
+        'description' => $params['description'],
+        'price' => $params['price']
         );
+
+    if( empty($_POST["available"]) ) { 
+      $attributes['available'] = "f";
+    }else { 
+      $attributes['available'] = "t";
+    }
     
       $product = new Product($attributes);
-      $errors = $product->errors();
+    $errors = $product->errors();
 
-      if(count($errors) > 0) {
-        View::make('game/edit.html', array('errors' => $errors, 'attributes' => $attributes));
-      } else {
-        $product->update();
+    if(count($errors) > 0){
+      $categories = Category::list();
+      View::make('product-edit.html', array('errors' => $errors, 'attributes' => $attributes, 'categories' => $categories));
+    }else{
+      $product->update();
         Redirect::to('/tuote/' . $product->id, array('message' => 'Tuotetta on muokattu onnistuneesti.'));
       }
     }
 
     public static function store(){
       $params = $_POST;
-      $product = new Product(array(
+
+      $attributes = array(
+        'category' => $params['category'],
         'name' => $params['name'],
         'price' => $params['price'],
         'description' => $params['description']
-        ));
+        );
 
+        if( empty($_POST["available"]) ) { 
+        $attributes['available'] = "f";
+        } else { 
+        $attributes['available'] = "t";
+        }
+
+      $product = new Product($attributes);
+      $errors = $product->errors();
+
+      if(count($errors) == 0) {
       $product->save();
-
-    Redirect::to('/tuote/' . $product->id, array('message' => 'Tuote on lisätty.'));
+      Redirect::to('/tuote/' . $product->id, array('message' => 'Tuote on lisätty.'));
+    } else {
+          $categories = Category::list();
+          View::make('product-add.html', array('errors' => $errors, 'attributes' => $attributes, 'categories' => $categories));
+      }
     }
 
     public static function create(){
-      View::make('product-add.html');
+      $categories = Category::list();
+      View::make('product-add.html', array('categories' => $categories));
     }
   }

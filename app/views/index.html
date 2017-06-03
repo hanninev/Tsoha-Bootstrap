@@ -31,7 +31,6 @@
     <thead>
       <tr>
         <th>Tuote</th>
-        <th>Kuva</th>
         <th>Hinta</th>
         <th></th>
       </tr>
@@ -45,11 +44,9 @@
         <table>
         <tr><b><a href="{{base_path}}/tuote/{{product.id}}">{{product.name}}</a></b></tr>
         <tr><p>{{product.description}}</p></tr>
-        <tr>Kategoria: <i>{{product.category}}</i></tr>
+        <tr>Kategoria: <i>{{product.category.name}}</i></tr>
         </table>
         </td>
-        <td><img src="https://cdn.pixabay.com/photo/2013/07/13/13/46/bicycle-161524_960_720.png" alt="" style="width:200px;height:150px;">
-</td>
         <td>{{product.price}}</td>
         <th><a class="btn btn-default btn-sm" href="#">Lisää ostoskoriin</a></th>
       </tr>
