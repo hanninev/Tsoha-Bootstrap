@@ -79,4 +79,12 @@
       $categories = Category::list();
       View::make('product-add.html', array('categories' => $categories));
     }
+
+    public static function destroy($id){
+    $product = new Product(array('id' => $id));
+ 
+   $product->destroy();
+
+    Redirect::to('/tuote', array('message' => 'Tuote on poistettu onnistuneesti!'));
+  }
   }

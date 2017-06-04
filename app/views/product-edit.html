@@ -39,7 +39,10 @@
       </textarea>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button> <button class="btn btn-danger">Poista tuote tietokannasta</button>
+      <button type="submit" class="btn btn-primary">Tallenna</button>       
     </div>
   </form>
+  <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/poista" style="display: inline-block;">
+  <button type="submit" class="btn btn-danger">Poista tuote tietokannasta</button>
+</form>
 {% endblock %}

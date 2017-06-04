@@ -72,4 +72,10 @@
       }
       return $errors;
     }
+
+    public function destroy(){
+      $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+        $row = $query->fetch();
+    }
   }

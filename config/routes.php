@@ -48,6 +48,10 @@
     ProductController::update($id);
   });
 
+  $routes->post('/tuote/:id/poista', function($id){
+  ProductController::destroy($id);
+  });
+
   $routes->get('/kayttaja/muokkaa', function() {
     UserController::edit();
   });
