@@ -9,7 +9,8 @@
 
     public static function show($id){
       $product = Product::show($id);
-      View::make('product-show.html', array('product' => $product));
+      $count = ProductInstance::howManyLeft($id);
+      View::make('product-show.html', array('product' => $product, 'count' => $count));
     }
 
     public static function edit($id){
@@ -64,10 +65,17 @@
         }
 
       $product = new Product($attributes);
+
       $errors = $product->errors();
 
       if(count($errors) == 0) {
       $product->save();
+
+      for ($i=0; $i < $params['count']; $i++) { 
+        $productInstance = new ProductInstance($product->id);
+        $productInstance->save();
+      }
+
       Redirect::to('/tuote/' . $product->id, array('message' => 'Tuote on lisätty.'));
     } else {
           $categories = Category::list();

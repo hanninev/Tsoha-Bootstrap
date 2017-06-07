@@ -28,4 +28,12 @@
       return $errors;
     }
 
+    public function validate_string_length($string, $name, $maxLength) {
+        $errors = array();
+        if(strlen($string) > $maxLength) {
+        $errors[] = $name . ' ei voi olla yli ' . $maxLength . ' merkkiä pitkä!';
+        }
+        return $errors;
+    }
+
   }

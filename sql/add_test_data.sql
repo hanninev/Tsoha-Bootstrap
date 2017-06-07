@@ -3,7 +3,7 @@
 
 INSERT INTO Status VALUES (1, 'kesken');
 
-INSERT INTO User1 VALUES (1, 'Jaska', 'Jokunen', '4342', 'matticom', 'Testauskatu 12 A 3', 100, 'Helsinki');
+INSERT INTO User1 VALUES (1, 'Jaska', 'Jokunen', '4342', 'matti', 'matti', 'Testauskatu 12 A 3', 100, 'Helsinki');
 
 INSERT INTO Role VALUES (1, 'Käyttäjä');
 

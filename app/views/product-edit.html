@@ -2,18 +2,23 @@
 {% block content %}
   <h1>Muokkaa tuotetta {{attributes.name}}</h1>
 
+  {% if errors %}
     <div class="alert alert-danger">
     {% for error in errors %}
     <p>{{error}}</p>
     {% endfor %}
     </div>
+  {% endif %}
 
   <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
     <div class="checkbox">
       <label>
-        <input type="checkbox", name="available", checked">
+      {% if attributes.available == 1 %}
+      <input type="checkbox", name="available", checked>
+      {% else %}
+      <input type="checkbox", name="available">
+      {% endif %}
         Myynnissä (poistamalla tämän täpän, voit piilottaa tuotteet käyttäjiltä, mutta säilyttää ne tietokannassa)
-      </label>
     </div>
     <div class="form-group">
       <label>Nimi</label>
@@ -43,6 +48,6 @@
     </div>
   </form>
   <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/poista" style="display: inline-block;">
-  <button type="submit" class="btn btn-danger">Poista tuote tietokannasta</button>
+  <button type="submit" class="btn btn-danger">Poista kaikki jäljellä olevat tuotteen ilmentymät</button>
 </form>
 {% endblock %}

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+  {% if message %}
 <div class="alert alert-success">
   {{message}}
 </div>
+{% endif %}
 
   <h1>{{product.name}}</h1>
 
@@ -20,7 +22,7 @@
 
   <ul>
     <li><strong>Hinta:</strong> {{product.price}}</li>
-    <li><strong>Varastossa:</strong> {{product.count}}</li>
+    <li><strong>Varastossa:</strong> {{count}}</li>
     <li><strong>Kategoria:</strong> {{product.category.name}}</li>
   </ul>
 

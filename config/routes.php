@@ -56,6 +56,14 @@
     UserController::edit();
   });
 
+  $routes->get('/login', function() {
+  UserController::login();
+  });
+
+  $routes->post('/login', function() {
+  UserController::handle_login();
+  });
+
   $routes->get('/kategoria/lisaa', function() {
     CategoryController::add();
   });

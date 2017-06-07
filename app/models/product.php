@@ -6,11 +6,11 @@
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
-      $this->validators = array('validate_name');
+      $this->validators = array('validate_name', 'validate_price', 'validate_description');
   	}
 
   	public static function list() {
-  		$query = DB::connection()->prepare('SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id');
+  		$query = DB::connection()->prepare('SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id WHERE Product.id IN (SELECT Product_id FROM ProductInstance WHERE Order1_id IS NULL)');
   		$query->execute();
   		$rows = $query->fetchAll();
   		$products = array();
@@ -32,10 +32,6 @@
   		$query = DB::connection()->prepare('SELECT * FROM Product WHERE id = :id LIMIT 1');
   		$query->execute(array('id' => $id));
   		$row = $query->fetch();
-
-      $ProductInstanceCount = DB::connection()->prepare('SELECT Count(id) AS count FROM ProductInstance WHERE Product_id = :id');
-      $ProductInstanceCount->execute(array('id' => $id));
-      $row2 = $ProductInstanceCount->fetch();
 
   		if ($row) {
   			$product = new Product(array(
@@ -65,17 +61,51 @@
         $row = $query->fetch();
     }
 
+
+    // Jos tuotteen jokin ilmentymä on liitettynä johonkin tilaukseen, tuotetta ei poisteta tietokannasta.
+    public function destroy(){
+      ProductInstance::destroy($this->id);
+
+      $query = DB::connection()->prepare('SELECT * FROM ProductInstance WHERE Product_id = :id LIMIT 1');
+        $query->execute(array('id' => $this->id));
+        $row = $query->fetch();
+
+        if(!$row) {
+        $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+        $row = $query->fetch();        
+      }
+    }
+
     public function validate_name() {
       $errors = array();
       if($this->name == '' || $this->name == null) {
         $errors[] = 'Nimi ei saa olla tyhjä!';
       }
-      return $errors;
+      if(strlen($this->name) > 50) {
+        $errors[] = 'Nimi ei voi olla yli 50 merkkiä pitkä!';
+      }
+    return $errors;
     }
 
-    public function destroy(){
-      $query = DB::connection()->prepare('DELETE FROM Product WHERE id = :id');
-        $query->execute(array('id' => $this->id));
-        $row = $query->fetch();
+
+    public function validate_price() {
+      $errors = array();
+      if($this->price == '' || $this->price == null) {
+        $errors[] = 'Hinta ei saa olla tyhjä!';
+      }
+      if(strlen($this->price) < 0) {
+        $errors[] = 'Hinta ei voi olla negatiivinen!';
+      }
+      if(!is_numeric($this->price)) {
+        $errors[] = 'Hinta pitää ilmoittaa numeroarvona!';
+      }
+
+    return $errors;
     }
+
+    public function validate_description() {
+      return $this->validate_string_length($this->description, 'Kuvaus', 500);
+    }
+
   }

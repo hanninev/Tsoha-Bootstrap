@@ -9,7 +9,8 @@ id SERIAL PRIMARY KEY,
 forename varchar(50) NOT NULL,
 surname varchar(50) NOT NULL,
 phonenumber varchar(10) NOT NULL,
-enmail varchar,
+email varchar,
+password varchar,
 address varchar NOT NULL,
 zipcode integer NOT NULL,
 postoffice varchar NOT NULL
@@ -60,5 +61,5 @@ CREATE Table ProductInstance(
 id SERIAL PRIMARY KEY,
 product_id INTEGER REFERENCES Product(id),
 order1_id INTEGER REFERENCES Order1(id),
-price integer NOT NULL
+price integer
 );
