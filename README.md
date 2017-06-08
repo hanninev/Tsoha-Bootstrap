@@ -11,10 +11,17 @@ Työn aiheena on toteuttaa verkkokauppa. Ylläpitäjät voivat laittaa tuotteita
 
 Kun käyttäjä on tehnyt tilauksen, tilatut tuotteet varataan kyseiselle käyttäjälle, ja tilaus menee ylläpitäjän näkymään odottamaan käsittelyä. Sovellus pitää myös kirjaa tuotteiden menekistä ja varastotilanteesta, jotta ylläpito voi tilata lisää loppumaisillaan olevia tuotteita.
 
-### Viikon 3 palautuksen malliluokka:
-* [Tuotteen lisääminen](http://hanninev.users.cs.helsinki.fi/kauppa/tuote/uusi)
-* [Tuotteiden listaaminen](http://hanninev.users.cs.helsinki.fi/kauppa/tuote)
-* [Näytä yksittäinen tuote](http://hanninev.users.cs.helsinki.fi/kauppa/tuote/1)
+### Viikon 4 palautuksen malliluokka:
+* [Sisäänkirjautuminen](http://hanninev.users.cs.helsinki.fi/kauppa/login)
+- Ylläpitäjän käyttäjätunnus: admin
+- Ylläpitäjän salasana: admin
+
+- Käyttäjän käyttäjätunnus: matti 
+- Käyttäjän salasana: matti
+(Normaalin käyttäjän näkymä on kuitenkin toistaiseksi samanlainen kuin kirjautumattomalla käyttäjällä)
+
+* [Tuotteen muokkaaminen ja poistaminen](http://hanninev.users.cs.helsinki.fi/kauppa/tuote/5/muokkaa?)
+
 
 ## Näkymät
 

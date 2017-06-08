@@ -1,5 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
+
+  {% if message %}
+  <div class="alert alert-success">
+  {{message}}
+  </div>
+  {% endif %}
+
+ {% if errors %}
+  <div class="alert alert-danger">
+    {% for error in errors %}
+    <p>{{error}}</p>
+    {% endfor %}  </div>
+  {% endif %}
+
    <p>Tervetuloa verkkokauppaan</p>
 
   <h1>Saatavilla olevat tuotteet</h1>
@@ -33,6 +47,10 @@
         <th>Tuote</th>
         <th>Hinta</th>
         <th></th>
+         {% if admin %}
+        <th>Varastossa</th>
+        <th>Lisää tai poista tuotteita (lukumäärä)</th>
+        {% endif %}
       </tr>
     </thead>
 
@@ -49,6 +67,11 @@
         </td>
         <td>{{product.price}}</td>
         <th><a class="btn btn-default btn-sm" href="#">Lisää ostoskoriin</a></th>
+        {% if admin %}
+        <th>{{product.count}}</th>
+        <th><form method="post">
+        <input type="text" name="count" class="form-control" value=""> <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/lisaa" class="btn btn-primary">Lisää</button> <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/poistalukumaara" class="btn btn-danger">Poista</button></form></th>
+        {% endif %}
       </tr>
       {% endfor %}
 

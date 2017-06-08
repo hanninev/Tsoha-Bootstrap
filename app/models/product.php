@@ -2,7 +2,7 @@
 
   class Product extends BaseModel{
 
-  	public $id, $category, $name, $photo, $description, $price, $available, $validators;
+  	public $id, $category, $name, $photo, $description, $price, $count, $available, $validators;
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
@@ -10,7 +10,7 @@
   	}
 
   	public static function list() {
-  		$query = DB::connection()->prepare('SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id WHERE Product.id IN (SELECT Product_id FROM ProductInstance WHERE Order1_id IS NULL)');
+  		$query = DB::connection()->prepare('SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id WHERE Product.available AND Product.id IN (SELECT Product_id FROM ProductInstance WHERE Order1_id IS NULL)');
   		$query->execute();
   		$rows = $query->fetchAll();
   		$products = array();
@@ -22,7 +22,8 @@
   				'name' => $row['name'],
   				'description' => $row['description'],
   				'price' => $row['price'],
-          'available' => $row['available']
+          'available' => $row['available'],
+          'count' => ProductInstance::howManyLeft($row['id'])
   				));
   		}
   		return $products;
@@ -40,7 +41,8 @@
   				'name' => $row['name'],
   				'description' => $row['description'],
   				'price' => $row['price'],
-          'available' => $row['available']
+          'available' => $row['available'],
+          'count' => ProductInstance::howManyLeft($row['id'])
   				));
 
   			return $product;
@@ -64,7 +66,7 @@
 
     // Jos tuotteen jokin ilmentymä on liitettynä johonkin tilaukseen, tuotetta ei poisteta tietokannasta.
     public function destroy(){
-      ProductInstance::destroy($this->id);
+      ProductInstance::destroyAllInStorage($this->id);
 
       $query = DB::connection()->prepare('SELECT * FROM ProductInstance WHERE Product_id = :id LIMIT 1');
         $query->execute(array('id' => $this->id));
@@ -94,10 +96,10 @@
       if($this->price == '' || $this->price == null) {
         $errors[] = 'Hinta ei saa olla tyhjä!';
       }
-      if(strlen($this->price) < 0) {
+      elseif(strlen($this->price) < 0) {
         $errors[] = 'Hinta ei voi olla negatiivinen!';
       }
-      if(!is_numeric($this->price)) {
+      elseif(!is_numeric($this->price)) {
         $errors[] = 'Hinta pitää ilmoittaa numeroarvona!';
       }
 

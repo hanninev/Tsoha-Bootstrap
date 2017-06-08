@@ -52,6 +52,14 @@
   ProductController::destroy($id);
   });
 
+  $routes->post('/tuote/:id/lisaa', function($id){
+  ProductInstanceController::store($id);
+  });
+
+  $routes->post('/tuote/:id/poistalukumaara', function($id){
+  ProductInstanceController::destroy($id);
+  });
+
   $routes->get('/kayttaja/muokkaa', function() {
     UserController::edit();
   });

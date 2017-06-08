@@ -19,4 +19,11 @@
       // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
     }
 
+    public static function admin(){
+        if (User::getRole($_SESSION['user']) == 1) {
+          return true;
+        } 
+        return false;
+       }
+
   }

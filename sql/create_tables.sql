@@ -13,12 +13,8 @@ email varchar,
 password varchar,
 address varchar NOT NULL,
 zipcode integer NOT NULL,
-postoffice varchar NOT NULL
-);
-
-CREATE Table Role(
-id SERIAL PRIMARY KEY,
-name varchar NOT NULL
+postoffice varchar NOT NULL,
+role integer NOT NULL
 );
 
 CREATE Table Category(
@@ -36,11 +32,6 @@ photo varchar(50),
 description varchar,
 price integer NOT NULL,
 available boolean
-);
-
-CREATE Table UserRole(
-user1_id INTEGER REFERENCES User1(id),
-role_id INTEGER REFERENCES Role(id)
 );
 
 CREATE TABLE Order1(

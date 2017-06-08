@@ -1,0 +1,74 @@
+<?php
+
+  class ProductInstanceController extends BaseController{
+
+    public static function store($product_id){
+      $params = $_POST;
+      $errors = self::validate_count($params['count']);
+
+      if (count($errors) > 0) {
+          $products = Product::list();
+
+      View::make('index.html', array('errors' => $errors, 'products' => $products, 'admin' => BaseController::admin()));
+    } else {
+      for ($i=0; $i < $params['count']; $i++) { 
+        $productInstance = new ProductInstance($product_id);
+        $productInstance->save();
+      }
+
+      $product = Product::show($product_id);
+
+      Redirect::to('/tuote', array('message' => 'Tuotetta ' . $product->name . ' on lisätty ' . $params['count'] . ' kappaletta.'));
+    } 
+    }
+
+    public static function destroy($product_id){
+    $params = $_POST;
+
+    if ($params['count'] == ProductInstance::howManyLeft($product_id)) {
+      ProductController::destroy($product_id);
+    }
+
+    $errors = self::validate_count($params['count']);
+    if (!is_null(self::validate_destroy($params['count'], $product_id))) {
+    array_push($errors, self::validate_destroy($params['count'], $product_id));
+    }
+
+    if (count($errors) > 0) {
+    $products = Product::list();
+
+    View::make('index.html', array('errors' => $errors, 'products' => $products, 'admin' => BaseController::admin()));
+    } else {
+    $productInstance = new ProductInstance($product_id);
+    $productInstance->destroyCount($product_id, $params['count']);
+
+    $product = Product::show($product_id);
+
+    Redirect::to('/tuote', array('message' => 'Tuotetta ' . $product->name . ' on poistettu ' . $params['count'] . ' kappaletta.'));  
+  }
+  }
+
+    public static function validate_count($count) {
+      $errors = array();
+      if($count == '' || $count == null) {
+        $errors[] = 'Kirjoita kenttään, kuinka paljon lisätään tai poistetaan!';
+      }
+      elseif($count <= 0) {
+        $errors[] = 'Muutoksen pitää olla positiivinen kokonaisluku!';
+      }
+      elseif(!is_numeric($count)) {
+        $errors[] = 'Muutos pitää ilmoittaa numeroarvona!';
+      }
+
+    return $errors;
+    }
+
+    public static function validate_destroy($count, $product_id) {
+      $productInstances = ProductInstance::howManyLeft($product_id);
+      if($count > $productInstances) {
+        return 'Tuotetta on varastossa vain ' . $productInstances . ' kappaletta, joten et voi poistaa ' . $count . ' kappaletta!';
+      }     
+    return null;
+    }
+
+  }

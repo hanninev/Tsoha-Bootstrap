@@ -23,17 +23,16 @@
         $this->id = $row['id'];
     }
 
-// update kuntoon!
-        public function update(){
-      $query = DB::connection()->prepare('UPDATE Product SET name = :name, category_id = :category_id, description = :description, price = :price, available = :available WHERE id = :id');
-        $query->execute(array('name' => $this->name, 'category_id' => $this->category, 'description' => $this->description, 'price' => $this->price, 'available' => $this->available, 'id' => $this->id));
+    // Poistetaan tietokannasta kaikki kyseisen tuotteen ilmentymät, joita ei ole liitetty mihinkään tilaukseen.
+    public static function destroyAllInStorage($productId){
+      $query = DB::connection()->prepare('DELETE FROM ProductInstance WHERE Product_id = :id AND Order1_id IS NULL');
+        $query->execute(array('id' => $productId));
         $row = $query->fetch();
     }
 
-    // Poistetaan tietokannasta kaikki kyseisen tuotteen ilmentymät, joita ei ole liitetty mihinkään tilaukseen.
-    public static function destroy($productId){
-      $query = DB::connection()->prepare('DELETE FROM ProductInstance WHERE Product_id = :id AND Order1_id IS NULL');
-        $query->execute(array('id' => $productId));
+    public static function destroyCount($productId, $count){
+      $query = DB::connection()->prepare('DELETE FROM ProductInstance WHERE id IN (SELECT id FROM ProductInstance WHERE product_id = :id AND Order1_id IS NULL LIMIT :amount)');
+        $query->execute(array('id' => $productId, 'amount' => $count));
         $row = $query->fetch();
     }
 

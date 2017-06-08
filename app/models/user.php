@@ -2,7 +2,7 @@
 
   class User extends BaseModel{
 
-  	public $id, $forename, $surname, $phonenumber, $email, $password, $address, $zipcode, $postoffice;
+  	public $id, $forename, $surname, $phonenumber, $email, $password, $address, $zipcode, $postoffice, $role;
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
@@ -49,6 +49,14 @@
         return $user;
       }
       return null;
+    }
+
+    public static function getRole($id) {
+      $query = DB::connection()->prepare('SELECT role FROM User1 WHERE id = :id LIMIT 1');
+      $query->execute(array('id' => $id));
+      $row = $query->fetch();
+
+      return $row['role'];
     }
 
   }
