@@ -20,10 +20,12 @@
     }
 
     public static function admin(){
+      if(isset($_SESSION['user'])) {
         if (User::getRole($_SESSION['user']) == 1) {
           return true;
         } 
-        return false;
-       }
+      }
+      return false;
+      }
 
   }
