@@ -53,7 +53,7 @@
   });
 
   $routes->post('/tuote/:id/lisaaOstoskoriin', function($id){
-  ProductController::addToCart($id);
+  OrderController::addToCart($id);
   });
 
   $routes->post('/tuote/:id/poistaOstoskorista', function($id){
@@ -62,6 +62,10 @@
 
   $routes->post('/ostoskori/tyhjenna', function() {
   OrderController::clearCart();
+  });
+
+  $routes->post('/tilaus', function() {
+    OrderController::store();
   });
 
   $routes->post('/tuote/:id/lisaa', function($id){
@@ -82,6 +86,10 @@
 
   $routes->post('/login', function() {
   UserController::handle_login();
+  });
+
+  $routes->post('/ostoskori/login', function() {
+  UserController::login_in_cart();
   });
 
   $routes->post('/logout', function(){

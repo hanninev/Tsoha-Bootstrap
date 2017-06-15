@@ -24,6 +24,20 @@
     }
   }
 
+      public static function login_in_cart(){
+    $params = $_POST;
+
+    $user = User::authenticate($params['username'], $params['password']);
+
+    if(!$user){
+      View::make('cart.html', array('errors' => array('Väärä käyttäjätunnus tai salasana!'), 'username' => $params['username']));
+    }else{
+      $_SESSION['user'] = $user->id;
+
+      Redirect::to('/ostoskori', array('message' => 'Hei ' . $user->forename . ', olet nyt kirjautuneena. Tarkistathan vielä, että toimitustiedot ovat ajantasalla!'));
+    }
+  }
+
   public static function logout(){
     $_SESSION['user'] = null;
     $_SESSION['cart'] = null;

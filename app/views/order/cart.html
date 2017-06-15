@@ -30,37 +30,59 @@
 
   </table>
 
-      <p><a href="{{base_path}}/" class="btn btn-default">Tee lisää ostoksia</a> </p>
-      <form method="post"><button type="submit" formaction="{{base_path}}/ostoskori/tyhjenna" class="btn btn-danger">Tyhjennä ostoskori</button></th></form>
+      <p><a href="{{base_path}}/" class="btn btn-default">Tee lisää ostoksia</a>   <form method="post"><button type="submit" formaction="{{base_path}}/ostoskori/tyhjenna" class="btn btn-danger">Tyhjennä ostoskori</button></form></p>
 
- <form>
-    <h2>Yhteystietosi</h2>
+      {% if not user_logged_in %}
+    <h3>Jos haluat tehdä ostokset kirjautuneena, kirjaudu sisään</h3>
+  <p>Voit tehdä tilauksen myös kirjautumatta täyttämällä toimitustiedot.</p>
+  <form method="post" action="{{base_path}}/ostoskori/login">
     <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" class="form-control" value="">
+      <label>Käyttäjätunnuksena toimiva sähköpostiosoitteesi</label>
+      <input type="text" class="form-control" name="username" value="{{username}}">
+    </div>
+
+    <div class="form-group">
+      <label>Salasana</label>
+      <input type="password" class="form-control" name="password">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+  </form>
+
+   {% endif %}
+
+  <form method="post" action="{{base_path}}/tilaus">
+    <h3>Toimitustiedot</h3>
+    <div class="form-group">
+      <label>Etunimi</label>
+      <input type="text" class="form-control" name="forename" value="{{user_logged_in.forename}}">
+    </div>
+    <div class="form-group">
+      <label>Sukunimi</label>
+      <input type="text" class="form-control" name="surname" value="{{user_logged_in.surname}}">
     </div>
     <div class="form-group">
       <label>Puhelinnumero</label>
-      <input type="text" class="form-control" value="">
+      <input type="text" class="form-control" name="phonenumber" value="{{user_logged_in.phonenumber}}">
     </div>
     <div class="form-group">
       <label>Sähköpostiosoite</label>
-       <input type="text" class="form-control" value="">
+       <input type="text" class="form-control" name="email" value="{{user_logged_in.email}}">
     </div>
         <div class="form-group">
       <label>Toimitusosoite</label>
-       <input type="text" class="form-control" value="">
+       <input type="text" class="form-control" name="delivery_address" value="{{user_logged_in.address}}">
     </div>
         <div class="form-group">
       <label>Postinumero</label>
-       <input type="text" class="form-control" value="">
+       <input type="text" class="form-control" name="zipcode" value="{{user_logged_in.zipcode}}">
     </div>
     <div class="form-group">
       <label>Postitoimipaikka</label>
-       <input type="text" class="form-control" value="">
+       <input type="text" class="form-control" name="postoffice" value="{{user_logged_in.postoffice}}">
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tee tilaus</button>
+      <button type="submit" name="submit" class="btn btn-primary">Tee tilaus</button>
     </div>
   </form>
 

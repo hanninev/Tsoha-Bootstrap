@@ -104,16 +104,5 @@
 
       Redirect::to('/tuote', array('message' => 'Tuote on poistettu onnistuneesti!'));
     }
-
-    public static function addToCart($id) {
-          $product = Product::show($id);
-          if(!isset($_SESSION['cart'])) {
-            $cart = array($id);
-            $_SESSION['cart'] = $cart;
-          } else {
-            array_push($_SESSION['cart'], $id);
-          }
-          Redirect::to('/', array('message' => 'Tuote ' . $product->name . ' on lisätty ostoskoriisi.'));
-    }
   
 }

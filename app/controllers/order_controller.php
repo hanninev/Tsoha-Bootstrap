@@ -51,4 +51,50 @@
     }
   }
 
+  public static function addToCart($id) {
+          $product = Product::show($id);
+          if(!isset($_SESSION['cart'])) {
+            $cart = array($id);
+            $_SESSION['cart'] = $cart;
+          } else {
+            array_push($_SESSION['cart'], $id);
+          }
+          Redirect::to('/', array('message' => 'Tuote ' . $product->name . ' on lisätty ostoskoriisi.'));
+    }
+
+    public static function store(){
+      $params = $_POST;
+
+      $attributes = array(
+          'status' => 1,
+          'forename' => $params['forename'],
+          'surname' => $params['surname'],
+          'phonenumber' => $params['phonenumber'],
+          'email' => $params['email'],
+          'delivery_address' => $params['delivery_address'],
+          'zipcode' => $params['zipcode'],
+          'postoffice' => $params['postoffice']
+        );
+
+      $order = new Order($attributes);
+
+      $errors = $order->errors();
+
+      if(count($errors) == 0) {
+      $order->save();
+
+      foreach ($_SESSION['cart'] as $product_id) {
+        $productInstance = ProductInstance::showByProduct($product_id);
+        $productInstance->order = $order;
+        $productInstance->reverseProductInstance();
+      }
+
+      $_SESSION['cart'] = null;
+      Redirect::to('/', array('message' => 'Tilaus on tehty onnistuneesti.'));
+    } else {
+          View::make('order/cart.html', array('errors' => $errors, 'attributes' => $attributes));
+      }
+    }
+
+
   }
