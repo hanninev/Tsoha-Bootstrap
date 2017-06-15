@@ -13,7 +13,8 @@
       View::make('index.html', array('errors' => $errors, 'products' => $products, 'admin' => BaseController::admin()));
     } else {
       for ($i=0; $i < $params['count']; $i++) { 
-        $productInstance = new ProductInstance($product_id);
+        $attributes = array('product' => Product::show($product_id));
+        $productInstance = new ProductInstance($attributes);
         $productInstance->save();
       }
 
@@ -41,7 +42,8 @@
 
     View::make('index.html', array('errors' => $errors, 'products' => $products, 'admin' => BaseController::admin()));
     } else {
-    $productInstance = new ProductInstance($product_id);
+    $attributes = array('product' => Product::show($product_id));
+    $productInstance = new ProductInstance($attributes);
     $productInstance->destroyCount($product_id, $params['count']);
 
     $product = Product::show($product_id);

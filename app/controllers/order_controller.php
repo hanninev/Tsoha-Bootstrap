@@ -15,6 +15,7 @@
     }
 
     public static function myOrders(){
+      // jos session käyttäjällä sama id kuin tilauksen tehneellä
       View::make('order/myOrders.html');
     }
 
@@ -75,6 +76,10 @@
           'zipcode' => $params['zipcode'],
           'postoffice' => $params['postoffice']
         );
+
+      if(self::get_user_logged_in()) {
+        $attributes['user'] = self::get_user_logged_in();
+      }
 
       $order = new Order($attributes);
 

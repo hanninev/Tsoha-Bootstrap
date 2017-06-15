@@ -59,8 +59,8 @@
   	}
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Order1 (status_id, forename, surname, phonenumber, email, delivery_address, zipcode, postoffice) VALUES (:status, :forename, :surname, :phonenumber, :email, :delivery_address, :zipcode, :postoffice) RETURNING id');
-        $query->execute(array('status' => $this->status, 'forename' => $this->forename, 'surname' => $this->surname, 'phonenumber' => $this->phonenumber, 'email' => $this->email, 'delivery_address' => $this->delivery_address, 'zipcode' => $this->zipcode, 'postoffice' => $this->postoffice));
+      $query = DB::connection()->prepare('INSERT INTO Order1 (user1_id, status_id, forename, surname, phonenumber, email, delivery_address, zipcode, postoffice) VALUES (:user, :status, :forename, :surname, :phonenumber, :email, :delivery_address, :zipcode, :postoffice) RETURNING id');
+        $query->execute(array('user' => $this->user->id, 'status' => $this->status, 'forename' => $this->forename, 'surname' => $this->surname, 'phonenumber' => $this->phonenumber, 'email' => $this->email, 'delivery_address' => $this->delivery_address, 'zipcode' => $this->zipcode, 'postoffice' => $this->postoffice));
         $row = $query->fetch();
         $this->id = $row['id'];
     }

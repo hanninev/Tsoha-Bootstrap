@@ -36,6 +36,7 @@
 
       if ($row) {
         $user = new User(array(
+          'id' => $id,
           'forename' => $row['forename'],
           'surname' => $row['surname'],
           'phonenumber' => $row['phonenumber'],

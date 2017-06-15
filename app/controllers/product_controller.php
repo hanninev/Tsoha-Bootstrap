@@ -63,9 +63,9 @@
         );
 
         if( empty($_POST["available"]) ) { 
-        $attributes['available'] = "f";
+        $attributes['available'] = 0;
         } else { 
-        $attributes['available'] = "t";
+        $attributes['available'] = 1;
         }
 
       $product = new Product($attributes);
