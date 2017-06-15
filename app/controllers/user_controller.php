@@ -3,7 +3,7 @@
   class UserController extends BaseController{
 
     public static function edit(){
-   	  View::make('user-edit.html');
+   	  View::make('user/edit.html');
     }
 
     public static function login(){
@@ -22,6 +22,12 @@
 
       Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->forename . '!'));
     }
+  }
+
+  public static function logout(){
+    $_SESSION['user'] = null;
+    $_SESSION['cart'] = null;
+    Redirect::to('/login', array('message' => 'Olet kirjautunut ulos!'));
   }
 
 

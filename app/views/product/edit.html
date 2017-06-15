@@ -2,14 +2,6 @@
 {% block content %}
   <h1>Muokkaa tuotetta {{attributes.name}}</h1>
 
-  {% if errors %}
-    <div class="alert alert-danger">
-    {% for error in errors %}
-    <p>{{error}}</p>
-    {% endfor %}
-    </div>
-  {% endif %}
-
   <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
     <div class="checkbox">
       <label>
@@ -47,7 +39,7 @@
       <button type="submit" class="btn btn-primary">Tallenna</button>       
     </div>
   </form>
-  <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/poista" style="display: inline-block;">
-  <button type="submit" class="btn btn-danger">Poista kaikki varastossa olevat tuotteen ilmentymät</button>
-</form>
+
+{{forms.delete_button("#{base_path}/tuote/#{attributes.id}/poista", "Poista kaikki tuotteen ilmentymät varastosta")}}
+
 {% endblock %}

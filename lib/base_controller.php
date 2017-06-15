@@ -28,4 +28,19 @@
       return false;
       }
 
+    public static function user(){
+      if(isset($_SESSION['user'])) {
+        if (User::getRole($_SESSION['user']) == 2) {
+          return true;
+        } 
+      }
+      return false;
+      }
+
+    public static function check_admin(){
+      if((!isset($_SESSION['user'])) || (isset($_SESSION['user']) && (User::getRole($_SESSION['user']) != 1))) {
+      Redirect::to('/login', array('error' => 'Vain ylläpito voi tarkastella tätä sivua!'));
+    }
+  }
+
   }

@@ -1,21 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if message %}
-<div class="alert alert-success">
-  {{message}}
-</div>
-{% endif %}
+{% import "macros/forms.html" as forms %}
 
   <h1>{{product.name}}</h1>
 
   <p>
-    <form method="post" action="" style="display: inline-block;"> <button type="submit" class="btn btn-default">Lisää ostoskoriin</button>
-    </form>
+    {{forms.add_to_cart_button("#{base_path}/tuote/#{product.id}/lisaaOstoskoriin")}}
+
     {% if admin %}
-    <form method="get" action="{{base_path}}/tuote/{{product.id}}/muokkaa" style="display: inline-block;"> <button type="submit" class="btn btn-default">Muokkaa tuotetta</button>
-    </form> 
+    {{forms.edit_button("#{base_path}/tuote/#{product.id}/muokkaa", "Muokkaa tuotetta")}}
     {% endif %}
-    <button class="btn btn-danger">Poista ostoskorista</button>
   </p>
 
     {% if product.available %}

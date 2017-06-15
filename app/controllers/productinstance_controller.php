@@ -3,6 +3,7 @@
   class ProductInstanceController extends BaseController{
 
     public static function store($product_id){
+      self::check_admin();
       $params = $_POST;
       $errors = self::validate_count($params['count']);
 
@@ -23,6 +24,7 @@
     }
 
     public static function destroy($product_id){
+    self::check_admin();
     $params = $_POST;
 
     if ($params['count'] == ProductInstance::howManyLeft($product_id)) {
@@ -49,6 +51,7 @@
   }
 
     public static function validate_count($count) {
+      self::check_admin();
       $errors = array();
       if($count == '' || $count == null) {
         $errors[] = 'Kirjoita kenttään, kuinka paljon lisätään tai poistetaan!';
@@ -64,6 +67,7 @@
     }
 
     public static function validate_destroy($count, $product_id) {
+      self::check_admin();
       $productInstances = ProductInstance::howManyLeft($product_id);
       if($count > $productInstances) {
         return 'Tuotetta on varastossa vain ' . $productInstances . ' kappaletta, joten et voi poistaa ' . $count . ' kappaletta!';

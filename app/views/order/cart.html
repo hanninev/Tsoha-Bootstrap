@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
+
   <h1>Ostoskorin sisältö</h1>
 
   <table class="table table-striped table-bordered">
@@ -12,21 +14,24 @@
     </thead>
 
     <tbody>
-
+      {% for product in products %}
       <tr>
-        <td><b>Polkupöyrä</b></td>
-        <td>9,00€</td>
-        <th><a class="btn btn-default btn-sm" href="#">Poista ostoskorista</a></th>
+        <td><b>{{product.name}}</b></td>
+        <td>{{product.price}}</td>
+        <th>{{forms.remove_from_cart_button("#{base_path}/tuote/#{product.id}/poistaOstoskorista")}}</th>
       </tr>
+    {% endfor %}
       <tr>
         <td><b>KOKONAISHINTA</b></td>
-        <td>9,00€</td>
+        <td>{{totalPrice}}</td>
       <td></td>
       </tr>
     </tbody>
+
   </table>
 
-      <p><a href="#" class="btn btn-default">Tee lisää ostoksia</a> </p>
+      <p><a href="{{base_path}}/" class="btn btn-default">Tee lisää ostoksia</a> </p>
+      <form method="post"><button type="submit" formaction="{{base_path}}/ostoskori/tyhjenna" class="btn btn-danger">Tyhjennä ostoskori</button></th></form>
 
  <form>
     <h2>Yhteystietosi</h2>

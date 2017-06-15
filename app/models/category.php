@@ -26,6 +26,10 @@
   	}
 
   	public static function show($id) {
+      if ($id == "" || $id == null) {
+        return null;
+      }
+
   		$query = DB::connection()->prepare('SELECT * FROM Category WHERE id = :id LIMIT 1');
   		$query->execute(array('id' => $id));
   		$row = $query->fetch();

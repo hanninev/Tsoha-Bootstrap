@@ -1,0 +1,19 @@
+{% macro remove_from_cart_button(action, text) %}
+	<form method="post"><button type="submit" formaction="{{action}}" class="btn btn-default">{{text|default('Poista ostoskorista')}}</button></form>
+{% endmacro %}
+
+{% macro add_to_cart_button(action, text) %}
+<form method="post"><button type="submit" formaction="{{action}}" class="btn btn-default">{{text|default('Lisää ostoskoriin')}}</button></th></form>
+{% endmacro %}
+
+{% macro edit_button(action, text) %}
+<form method="get"><button type="submit" formaction="{{action}}" class="btn btn-default">{{text|default('Muokkaa')}}</button></th></form>
+{% endmacro %}
+
+{% macro add_button(action, text) %}
+<form method="post"><button type="submit" formaction="{{action}}" class="btn btn-default">{{text|default('Lisää')}}</button></th></form>
+{% endmacro %}
+
+{% macro delete_button(action, text) %}
+<form method="post"><button type="submit" formaction="{{action}}" class="btn btn-danger">{{text|default('Poista')}}</button></th></form>
+{% endmacro %}
