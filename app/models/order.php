@@ -6,7 +6,7 @@
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
-      $this->validators = array('validate_name', 'validate_phonenumber');
+      $this->validators = array('validate_forename', 'validate_surname', 'validate_phonenumber', 'validate_email', 'validate_delivery_address', 'validate_zipcode', 'validate_postoffice');
   	}
 
   	public static function list() {
@@ -58,38 +58,32 @@
   		return null;
   	}
 
-    public function save(){
+    public function save() {
+      if ($this->user) {
+        self::saveWithUser();
+      } else {
+        self::saveWithoutUser();
+      }
+    }
+
+    public function saveWithUser(){
       $query = DB::connection()->prepare('INSERT INTO Order1 (user1_id, status_id, forename, surname, phonenumber, email, delivery_address, zipcode, postoffice) VALUES (:user, :status, :forename, :surname, :phonenumber, :email, :delivery_address, :zipcode, :postoffice) RETURNING id');
         $query->execute(array('user' => $this->user->id, 'status' => $this->status, 'forename' => $this->forename, 'surname' => $this->surname, 'phonenumber' => $this->phonenumber, 'email' => $this->email, 'delivery_address' => $this->delivery_address, 'zipcode' => $this->zipcode, 'postoffice' => $this->postoffice));
+
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
-    public function validate_name() {
-      $errors = array();
-      if($this->forename == '' || $this->forename == null) {
-        $errors[] = 'Nimi ei saa olla tyhjä!';
-      }
-      if(strlen($this->forename) > 20) {
-        $errors[] = 'Nimi ei voi olla yli 20 merkkiä pitkä!';
-      }
-    return $errors;
+    public function saveWithoutUser(){
+      $query = DB::connection()->prepare('INSERT INTO Order1 (status_id, forename, surname, phonenumber, email, delivery_address, zipcode, postoffice) VALUES (:status, :forename, :surname, :phonenumber, :email, :delivery_address, :zipcode, :postoffice) RETURNING id');
+        $query->execute(array('status' => $this->status, 'forename' => $this->forename, 'surname' => $this->surname, 'phonenumber' => $this->phonenumber, 'email' => $this->email, 'delivery_address' => $this->delivery_address, 'zipcode' => $this->zipcode, 'postoffice' => $this->postoffice));
+
+        $row = $query->fetch();
+        $this->id = $row['id'];
     }
 
-
-    public function validate_phonenumber() {
-      $errors = array();
-      if($this->phonenumber == '' || $this->phonenumber == null) {
-        $errors[] = 'Puhelinnumero ei saa olla tyhjä!';
-      }
-      elseif($this->phonenumber < 0) {
-        $errors[] = 'Puhelinnumero ei voi olla negatiivinen!';
-      }
-      elseif(!is_numeric($this->phonenumber)) {
-        $errors[] = 'Puhelinnumero pitää ilmoittaa numeroarvona!';
-      }
-
-    return $errors;
+    public function validate_delivery_address() {
+    return self::validate_string_length($this->delivery_address, 'Toimitusosoite', 20);
     }
 
   }

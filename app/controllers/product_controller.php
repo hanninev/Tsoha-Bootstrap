@@ -78,8 +78,11 @@
       if(count($errors) == 0) {
       $product->save();
 
+      $piAttributes = array(
+        'product' => $product);
+
       for ($i=0; $i < $params['count']; $i++) { 
-        $productInstance = new ProductInstance($product->id);
+        $productInstance = new ProductInstance($piAttributes);
         $productInstance->save();
       }
 
