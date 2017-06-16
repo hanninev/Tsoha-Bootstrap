@@ -32,10 +32,9 @@
       ProductController::destroy($product_id);
     }
 
-    $errors = self::validate_count($params['count']);
-    if (!is_null(self::validate_destroy($params['count'], $product_id))) {
-    array_push($errors, self::validate_destroy($params['count'], $product_id));
-    }
+    $errors = array();
+    $errors = array_merge($errors, self::validate_count($params['count']));
+    $errors = array_merge($errors, self::validate_destroy($params['count'], $product_id));
 
     if (count($errors) > 0) {
     $products = Product::list();
@@ -52,8 +51,7 @@
   }
   }
 
-    public static function validate_count($count) {
-      self::check_admin();
+  public static function validate_count($count) {
       $errors = array();
       if($count == '' || $count == null) {
         $errors[] = 'Kirjoita kenttään, kuinka paljon lisätään tai poistetaan!';
@@ -66,15 +64,15 @@
       }
 
     return $errors;
-    }
+  }
 
     public static function validate_destroy($count, $product_id) {
-      self::check_admin();
+      $errors = array();
       $productInstances = ProductInstance::howManyLeft($product_id);
       if($count > $productInstances) {
-        return 'Tuotetta on varastossa vain ' . $productInstances . ' kappaletta, joten et voi poistaa ' . $count . ' kappaletta!';
+        $errors[] = 'Tuotetta on varastossa vain ' . $productInstances . ' kappaletta, joten et voi poistaa ' . $count . ' kappaletta!';
       }     
-    return null;
+    return $errors;
     }
 
   }

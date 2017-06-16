@@ -71,9 +71,7 @@
       $product = new Product($attributes);
 
       $errors = $product->errors();
-      if (!is_null($product->validate_count())) {
-      array_push($errors, $product->validate_count());
-      }
+      $errors = array_merge($errors, $product->validate_count());
 
       if(count($errors) == 0) {
       $product->save();

@@ -80,43 +80,16 @@
     }
 
     public function validate_name() {
-      $errors = array();
-      if($this->name == '' || $this->name == null) {
-        $errors[] = 'Nimi ei saa olla tyhjä!';
-      }
-      if(strlen($this->name) > 50) {
-        $errors[] = 'Nimi ei voi olla yli 50 merkkiä pitkä!';
-      }
-    return $errors;
+    return self::validate_string_length($this->name, 'Nimi', 30);
     }
 
 
     public function validate_price() {
-      $errors = array();
-      if($this->price == '' || $this->price == null) {
-        $errors[] = 'Hinta ei saa olla tyhjä!';
-      }
-      elseif($this->price < 0) {
-        $errors[] = 'Hinta ei voi olla negatiivinen!';
-      }
-      elseif(!is_numeric($this->price)) {
-        $errors[] = 'Hinta pitää ilmoittaa numeroarvona!';
-      }
-
-    return $errors;
+    return self::validate_positive_number_value($this->price, 'Hinta', 10);
     }
 
     public function validate_count() {
-      if($this->count == '' || $this->count == null) {
-        return 'Lukumäärä ei saa olla tyhjä!';
-      }
-      elseif($this->count < 0) {
-        return 'Lukumäärä ei voi olla negatiivinen!';
-      }
-      elseif(!is_numeric($this->count)) {
-        return 'Lukumäärä pitää ilmoittaa numeroarvona!';
-      }
-      return null;
+    return self::validate_positive_number_value($this->count, 'Lukumäärä', 10);
     }
 
     public function validate_description() {
