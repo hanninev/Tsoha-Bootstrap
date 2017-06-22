@@ -78,4 +78,28 @@
         $row = $query->fetch();
     }
 
+        public static function ProductInstanceByOrder($id) {
+      $query = DB::connection()->prepare('SELECT ProductInstance.product_id, ProductInstance.price FROM ProductInstance WHERE ProductInstance.order1_id = :id');
+      $query->execute(array('id' => $id));
+      $rows = $query->fetchAll();
+      $productInstances = array();
+
+      foreach ($rows as $row) {
+        $productInstances[] = new ProductInstance(array(
+          'product' => Product::show($row['product_id']),
+          'price' => $row['price']
+          ));
+      }
+      return $productInstances;
+    }
+
+
+      public static function totalPriceOfOrder($id) {
+      $query = DB::connection()->prepare('SELECT SUM(ProductInstance.price) AS totalprice FROM ProductInstance WHERE ProductInstance.order1_id = :id');
+      $query->execute(array('id' => $id));
+      $row = $query->fetch();
+
+      return $row['totalprice'];
+    }
+
   }

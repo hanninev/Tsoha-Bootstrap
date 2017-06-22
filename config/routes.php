@@ -8,20 +8,28 @@
     OrderController::cart();
   });
 
-  $routes->get('/tilaus/saapuneet', function() {
-    OrderController::inbox();
+  $routes->get('/tilaukset', function() {
+    OrderController::arrivedOrders();
   });
 
-  $routes->get('/tilaus', function() {
-    OrderController::show();
+  $routes->get('/tilaus/:id', function($id) {
+    OrderController::show($id);
   });
 
-  $routes->get('/tilaus/omat', function() {
+  $routes->post('/tilaukset/:id/toimitetuksi', function($id) {
+    OrderController::editStatus($id, 2);
+  });
+
+  $routes->post('/tilaukset/:id/hylkaa', function($id) {
+    OrderController::editStatus($id, 3);
+  });
+
+  $routes->post('/tilaukset/:id/kasittelyyn', function($id) {
+    OrderController::editStatus($id, 1);
+  });
+
+  $routes->get('/tilaukset/omat', function() {
     OrderController::myOrders();
-  });
-
-  $routes->get('/tilaus/muokkaa', function() {
-    OrderController::edit();
   });
 
   $routes->get('/tuote', function() {
@@ -65,7 +73,7 @@
   });
 
   $routes->post('/tilaus', function() {
-    OrderController::store();
+  OrderController::store();
   });
 
   $routes->post('/tuote/:id/lisaa', function($id){
@@ -77,7 +85,19 @@
   });
 
   $routes->get('/kayttaja/muokkaa', function() {
-    UserController::edit();
+  UserController::edit();
+  });
+
+  $routes->get('/kayttaja', function() {
+  UserController::show();
+  });
+
+  $routes->post('/kayttaja/muokkaa/laheta', function() {
+  UserController::update();
+  });
+
+  $routes->post('/kayttaja/poista', function() {
+  UserController::destroy();
   });
 
   $routes->get('/login', function() {
@@ -94,6 +114,14 @@
 
   $routes->post('/logout', function(){
   UserController::logout();
+  });
+
+  $routes->post('/kayttaja/uusi', function() {
+    UserController::store();
+  });
+
+  $routes->get('/rekisteroidy', function() {
+    UserController::create();
   });
 
   $routes->get('/kategoria/lisaa', function() {

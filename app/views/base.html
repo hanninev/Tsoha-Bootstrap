@@ -46,9 +46,20 @@
           <li><a href="{{base_path}}/ostoskori">Ostoskori</a></li>
           </ul>
 
+          {% if user_logged_in %}
+          <ul class="nav navbar-nav">
+          <li><a href="{{base_path}}/kayttaja">Omat tietoni</a></li>
+          </ul>
+          <ul class="nav navbar-nav">
+          <li><a href="{{base_path}}/tilaukset/omat">Omat tilaukseni</a></li>
+          </ul>
+          {% endif %}
           {% if admin %}
           <ul class="nav navbar-nav">
           <li><a href="{{base_path}}/tuote/uusi">Lisää uusi tuote</a></li>
+          </ul>
+          <ul class="nav navbar-nav">
+          <li><a href="{{base_path}}/tilaukset">Saapuneet tilaukset</a></li>
           </ul>
           {% endif %}
 
@@ -59,6 +70,9 @@
       {% else %}
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{base_path}}/rekisteroidy">Rekisteröidy</a></li>
         </ul>
       {% endif %}
 

@@ -2,7 +2,7 @@
 
   class Category extends BaseModel{
 
-  	public $id, $parentcategory_id, $name, $description;
+  	public $id, $name, $description;
 
   	public function __construct($attributes) {
   		parent::__construct($attributes);
@@ -17,7 +17,6 @@
   		foreach ($rows as $row) {
   			$categories[] = new Category(array(
   				'id' => $row['id'],
-  				'parentcategory_id' => $row['parentcategory_id'],
   				'name' => $row['name'],
   				'description' => $row['description']
   				));
@@ -25,7 +24,7 @@
   		return $categories;
   	}
 
-  	public static function show($id) {
+  	public static function find($id) {
       if ($id == "" || $id == null) {
         return null;
       }
@@ -37,7 +36,6 @@
   		if ($row) {
   			$category = new Category(array(
   				'id' => $row['id'],
-          'parentcategory_id' => $row['parentcategory_id'],
   				'name' => $row['name'],
   				'description' => $row['description']
   				));
@@ -48,15 +46,15 @@
   	}
 
     public function save(){
-      $query = DB::connection()->prepare('INSERT INTO Category (parentcategory_id, name, description) VALUES (:name, :parentcategory_id, :description) RETURNING id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'parentcategory_id' => $this->parentcategory_id));
+      $query = DB::connection()->prepare('INSERT INTO Category (name, description) VALUES (:name, :description) RETURNING id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
     }
 
         public function update($id){
-      $query = DB::connection()->prepare('UPDATE Category SET name = :name, description = :description, parentcategory_id = :parentcategory_id) WHERE id = :id');
-        $query->execute(array('name' => $this->name, 'description' => $this->description, 'parentcategory_id' => $this->parentcategory_id));
+      $query = DB::connection()->prepare('UPDATE Category SET name = :name, description = :description) WHERE id = :id');
+        $query->execute(array('name' => $this->name, 'description' => $this->description));
         $row = $query->fetch();
         $this->id = $row['id'];
     }

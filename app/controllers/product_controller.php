@@ -4,13 +4,13 @@
 
     public static function index(){
       $products = Product::list();
-      View::make('index.html', array('products' => $products, 'admin' => BaseController::admin()));
+      View::make('index.html', array('products' => $products));
     }
 
     public static function show($id){
       $product = Product::show($id);
       $count = ProductInstance::howManyLeft($id);
-      View::make('product/show.html', array('product' => $product, 'admin' => BaseController::admin()));
+      View::make('product/show.html', array('product' => $product));
     }
 
     public static function edit($id){

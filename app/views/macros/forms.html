@@ -17,3 +17,7 @@
 {% macro delete_button(action, text) %}
 <form method="post"><button type="submit" formaction="{{action}}" class="btn btn-danger">{{text|default('Poista')}}</button></th></form>
 {% endmacro %}
+
+{% macro mark_to_delivered_button(action, text) %}
+<form method="post"><button type="submit" formaction="{{action}}" class="btn btn-success">{{text|default('Merkitse toimitetuksi')}}</button></th></form>
+{% endmacro %}

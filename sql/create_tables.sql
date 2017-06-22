@@ -12,7 +12,7 @@ phonenumber varchar(10) NOT NULL,
 email varchar,
 password varchar,
 address varchar NOT NULL,
-zipcode integer NOT NULL,
+zipcode varchar(5) NOT NULL,
 postoffice varchar NOT NULL,
 role integer NOT NULL
 );
@@ -36,14 +36,14 @@ available boolean
 
 CREATE TABLE Order1(
 id SERIAL PRIMARY KEY,
-user1_id INTEGER REFERENCES User1(id),
+user1_id INTEGER REFERENCES User1(id) ON DELETE SET NULL,
 status_id INTEGER REFERENCES Status(id),
 forename varchar(50) NOT NULL,
 surname varchar(50) NOT NULL,
 phonenumber varchar(10) NOT NULL,
 email varchar,
 delivery_address varchar NOT NULL,
-zipcode integer NOT NULL,
+zipcode varchar (5) NOT NULL,
 postoffice varchar NOT NULL,
 time DATE
 );
@@ -51,6 +51,6 @@ time DATE
 CREATE Table ProductInstance(
 id SERIAL PRIMARY KEY,
 product_id INTEGER REFERENCES Product(id),
-order1_id INTEGER REFERENCES Order1(id),
+order1_id INTEGER REFERENCES Order1(id) ON DELETE SET NULL,
 price integer
 );

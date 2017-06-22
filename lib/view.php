@@ -18,6 +18,8 @@
           $content['user_logged_in'] = BaseController::get_user_logged_in();
         }
 
+        $content['admin'] = BaseController::admin();
+
         // Tulostetaan Twig:n renderöimä näkymä
         echo $twig->render($view, $content);
       } catch (Exception $e){

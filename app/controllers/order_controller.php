@@ -2,21 +2,32 @@
 
   class OrderController extends BaseController{
 
-    public static function inbox(){
-      View::make('admin/arrivedOrders.html');
-    }
+    public static function show($id){
+      self::check_logged_in();
+      $order = Order::show($id);
+      $productInstances = ProductInstance::ProductInstanceByOrder($id);
 
-    public static function show(){
-      View::make('order/show.html');
-    }
-
-    public static function edit(){
-      View::make('order/edit.html');
+      View::make('order/show.html', array('order' => $order, 'productInstances' => $productInstances));
     }
 
     public static function myOrders(){
-      // jos session käyttäjällä sama id kuin tilauksen tehneellä
-      View::make('order/myOrders.html');
+      self::check_logged_in();
+      $user = self::get_user_logged_in();
+      $orders = Order::myOrders($user->id);
+      View::make('order/myOrders.html', array('orders' => $orders));
+    }
+
+    public static function editStatus($order_id, $status_id) {
+      self::check_admin();
+      $order = Order::show($order_id);
+      $order->editStatus($status_id);
+      Redirect::to('/tilaukset', array());
+    }
+
+    public static function arrivedOrders(){
+      self::check_admin();
+      $orders = Order::arrivedList();
+      View::make('admin/arrivedOrders.html', array('orders' => $orders));
     }
 
     public static function cart(){
@@ -97,7 +108,7 @@
       $_SESSION['cart'] = null;
       Redirect::to('/', array('message' => 'Tilaus on tehty onnistuneesti.'));
     } else {
-          View::make('order/cart.html', array('errors' => $errors, 'attributes' => $attributes));
+      Redirect::to('/ostoskori', array('errors' => $errors, 'attributes' => $attributes));
       }
     }
 

@@ -15,8 +15,9 @@
   }
 
     public static function check_logged_in(){
-      // Toteuta kirjautumisen tarkistus tähän.
-      // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
+      if(!isset($_SESSION['user'])) {
+      Redirect::to('/login', array('errors' => array('Kirjaudu ensin sisään!')));
+      }
     }
 
     public static function admin(){
@@ -39,7 +40,7 @@
 
     public static function check_admin(){
       if((!isset($_SESSION['user'])) || (isset($_SESSION['user']) && (User::getRole($_SESSION['user']) != 1))) {
-      Redirect::to('/login', array('error' => 'Vain ylläpito voi tarkastella tätä sivua!'));
+      Redirect::to('/login', array('errors' => array('Vain ylläpito voi tarkastella tätä sivua!')));
     }
   }
 
