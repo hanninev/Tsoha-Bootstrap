@@ -6,28 +6,19 @@
 
   <h1>Saatavilla olevat tuotteet</h1>
 
-   <div class="form-group">
-      <label>Kategoria</label>
-      <select>
-    <option value=""></option>
-   <optgroup label="Vapaa-aika">
-    <option value="polkupyörät">Polkupyörät</option>
-    <option value="veneet">Veneet</option>
-   </optgroup>
-   <optgroup label="Tietotekniikka">
-    <option value="kannettavat tietokoneeet">Kannettavat tietokoneet</option>
-    <option value="tulostimet">Tulostimet</option>
-   </optgroup>
-   </select>
+      <label>Valitse kategoria</label>
+  <form method="get" action="{{base_path}}/?cateogory/{{category.id}}">
+   <select name="category">
+      <option value="{{current_category.id}}" selected="selected">{{current_category.name}}</option>
+    <option value="">Kaikki kategoriat</option>
+    {% for category in categories %}
+      <option value="{{category.id}}">{{category.name}}</option>
+    {% endfor %}
+    </select>
+    <div class="form-group">
+      <button type="submit" name="" class="btn btn-primary">Hae tuotteita</button>
     </div>
-
-  <div class="form-group">
-      <label>Lajitteluperuste</label>
-      <select>
-    <option value="polkupyörät">Halvin ensin</option>
-    <option value="veneet">Kallein ensin</option>
-   </select>
-    </div>
+    </form>
 
   <table class="table table-striped table-bordered">
     <thead>

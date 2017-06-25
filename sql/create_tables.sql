@@ -20,15 +20,13 @@ role integer NOT NULL
 CREATE Table Category(
 id SERIAL PRIMARY KEY,
 name varchar(50) NOT NULL,
-parentcategory_id INTEGER REFERENCES Category(id),
 description varchar
 );
 
 CREATE Table Product(
 id SERIAL PRIMARY KEY,
-category_id INTEGER REFERENCES Category(id),
+category_id INTEGER REFERENCES Category(id) ON DELETE SET NULL,
 name varchar(50) NOT NULL,
-photo varchar(50),
 description varchar,
 price integer NOT NULL,
 available boolean
@@ -44,8 +42,7 @@ phonenumber varchar(10) NOT NULL,
 email varchar,
 delivery_address varchar NOT NULL,
 zipcode varchar (5) NOT NULL,
-postoffice varchar NOT NULL,
-time DATE
+postoffice varchar NOT NULL
 );
 
 CREATE Table ProductInstance(
@@ -53,4 +50,9 @@ id SERIAL PRIMARY KEY,
 product_id INTEGER REFERENCES Product(id),
 order1_id INTEGER REFERENCES Order1(id) ON DELETE SET NULL,
 price integer
+);
+
+CREATE Table ProductCategory(
+product_id INTEGER REFERENCES Product(id),
+category_id INTEGER REFERENCES Category(id)
 );

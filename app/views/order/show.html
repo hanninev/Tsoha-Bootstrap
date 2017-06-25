@@ -2,6 +2,7 @@
 {% block content %}
   <h1>Tilaus</h1>
   <ul>
+    <li><strong>Tilausnumero:</strong> {{order.id}}</li>
     <li><strong>Asiakas:</strong> {{order.forename}} {{order.surname}}</li>
     <li><strong>Toimitusosoite:</strong> {{order.delivery_address}}, {{order.zipcode}} {{order.postoffice}}</li>
     <li><strong>Puhelinnumero:</strong> {{order.phonenumber}}</li>

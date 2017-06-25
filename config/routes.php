@@ -125,13 +125,26 @@
   });
 
   $routes->get('/kategoria/lisaa', function() {
-    CategoryController::add();
+    CategoryController::create();
   });
 
-  $routes->get('/kategoria/muokkaa', function() {
-    CategoryController::edit();
+
+  $routes->post('/kategoria/lisaa/laheta', function() {
+    CategoryController::store();
   });
 
-  $routes->get('/kategoria/listaa', function() {
+  $routes->get('/kategoria/:id/muokkaa', function($id) {
+    CategoryController::edit($id);
+  });
+
+  $routes->post('/kategoria/:id/muokkaa/laheta', function($id) {
+    CategoryController::update($id);
+  });
+
+  $routes->get('/kategoriat', function() {
     CategoryController::list();
+  });
+
+  $routes->post('/kategoria/:id/poista', function($id) {
+    CategoryController::destroy($id);
   });

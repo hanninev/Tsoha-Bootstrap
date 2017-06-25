@@ -72,7 +72,7 @@
       elseif($int < 0) {
         $errors[] = $name . ' ei voi olla negatiivinen!';
       }
-      elseif(!preg_match('/([0-9]*)/', $int)) {
+      elseif((!is_numeric($int) || !preg_match('/[0-9]/', $int))) {
         $errors[] = $name . ' pitää ilmoittaa numeroarvona!';
       }
       elseif(strlen($int) > $maxLength) {
@@ -90,6 +90,41 @@
 
     public function validate_zipcode() {
       return self::validate_positive_number_value($this->zipcode, 'Postinumero', 5, 5);
+    }
+
+        public function validate_name()
+    {
+        return self::validate_string_length($this->name, 'Nimi', 1, 30);
+    }
+
+    public function validate_description()
+    {
+        return $this->validate_string_length($this->description, 'Kuvaus', 0, 500);
+    }
+
+    public function validate_no_dublicate_value($name, $database_table, $database_attribute)
+    {
+        $errors = array();
+
+        if (isset($this->id)) {
+        $query = DB::connection()->prepare('SELECT * FROM ' . $database_table .' WHERE '. $database_attribute . '= :name AND id <> :id LIMIT 1');
+        $query->execute(array(
+            'name' => $this->{$database_attribute},
+            'id' => $this->id
+        ));
+        $row = $query->fetch();
+    } else {
+        $query = DB::connection()->prepare('SELECT * FROM ' . $database_table .' WHERE '. $database_attribute . '= :name LIMIT 1');
+        $query->execute(array(
+            'name' => $this->{$database_attribute}
+        ));
+        $row = $query->fetch();  
+    }
+        
+        if ($row) {
+            $errors[] = 'Saman niminen ' . $name .' on jo olemassa!';
+            }
+    return $errors;
     }
 
   }

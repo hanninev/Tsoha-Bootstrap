@@ -3,30 +3,20 @@
   <h1>Hallinnoi kategorioita</h1>
 <h3>Lisää uusi kategoria</h3>
 
-  <form>
+  <form method="post" action="{{base_path}}/kategoria/lisaa/laheta">
  <div class="form-group">
-      <label>Yläkategoria</label>
-      <select>
-    <option value="polkupyörät">Polkupyörät</option>
-    <option value="veneet">Veneet</option>
-   </select>
-    </div>
     <div class="form-group">
-      <label>Uusi yläkategoria (jos ei listassa)</label>
-      <input type="text" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>Uusi alakategoria</label>
-      <input type="text" class="form-control">
+      <label>Nimi</label>
+      <input type="text" name="name" class="form-control" value="{{attributes.name}}">
     </div>
 
-    <div class="form-group">
+      <div class="form-group">
       <label>Kuvaus</label>
-      <textarea class="form-control">
+      <textarea name="description" class="form-control">{{attributes.description}}
       </textarea>
     </div>
     <div class="form-group">
-      <button type="submit" class="btn btn-primary">Lisää kategoria</button>
+      <button type="submit" name="submit" class="btn btn-primary">Lisää uusi kategoria</button>
     </div>
   </form>
 

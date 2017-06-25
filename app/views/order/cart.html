@@ -53,34 +53,70 @@
 
   <form method="post" action="{{base_path}}/tilaus">
     <h3>Toimitustiedot</h3>
-    <div class="form-group">
+      
+      <div class="form-group">
       <label>Etunimi</label>
+      {% if attributes.forename %}
+      <input type="text" class="form-control" name="forename" value="{{attributes.forename}}">
+      {% else %}
       <input type="text" class="form-control" name="forename" value="{{user_logged_in.forename}}">
-    </div>
+      {% endif %}
+      </div>
+
     <div class="form-group">
       <label>Sukunimi</label>
+      {% if attributes.surname %}
+      <input type="text" class="form-control" name="surname" value="{{attributes.surname}}">
+      {% else %}
       <input type="text" class="form-control" name="surname" value="{{user_logged_in.surname}}">
-    </div>
+      {% endif %}
+      </div>
+
     <div class="form-group">
       <label>Puhelinnumero</label>
+      {% if attributes.phonenumber %}
+      <input type="text" class="form-control" name="phonenumber" value="{{attributes.phonenumber}}">
+      {% else %}
       <input type="text" class="form-control" name="phonenumber" value="{{user_logged_in.phonenumber}}">
-    </div>
+      {% endif %}
+      </div>
+
     <div class="form-group">
       <label>Sähköpostiosoite</label>
-       <input type="text" class="form-control" name="email" value="{{user_logged_in.email}}">
-    </div>
+      {% if attributes.email %}
+      <input type="text" class="form-control" name="email" value="{{attributes.email}}">
+      {% else %}
+      <input type="text" class="form-control" name="email" value="{{user_logged_in.email}}">
+      {% endif %}
+      </div>
+
         <div class="form-group">
       <label>Toimitusosoite</label>
-       <input type="text" class="form-control" name="delivery_address" value="{{user_logged_in.address}}">
-    </div>
+      {% if attributes.delivery_address %}
+      <input type="text" class="form-control" name="delivery_address" value="{{attributes.delivery_address}}">
+      {% else %}
+      <input type="text" class="form-control" name="delivery_address" value="{{user_logged_in.delivery_address}}">
+      {% endif %}
+      </div>
+
         <div class="form-group">
       <label>Postinumero</label>
-       <input type="text" class="form-control" name="zipcode" value="{{user_logged_in.zipcode}}">
-    </div>
+      {% if attributes.zipcode %}
+      <input type="text" class="form-control" name="zipcode" value="{{attributes.zipcode}}">
+      {% else %}
+      <input type="text" class="form-control" name="zipcode" value="{{user_logged_in.zipcode}}">
+      {% endif %}
+      </div>
+
     <div class="form-group">
       <label>Postitoimipaikka</label>
-       <input type="text" class="form-control" name="postoffice" value="{{user_logged_in.postoffice}}">
-    </div>
+      {% if attributes.postoffice %}
+      <input type="text" class="form-control" name="postoffice" value="{{attributes.postoffice}}">
+      {% else %}
+      <input type="text" class="form-control" name="postoffice" value="{{user_logged_in.postoffice}}">
+      {% endif %}
+      </div>
+
     <div class="form-group">
       <button type="submit" name="submit" class="btn btn-primary">Tee tilaus</button>
     </div>
