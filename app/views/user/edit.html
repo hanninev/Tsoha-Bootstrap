@@ -40,6 +40,9 @@
                   </div>
                 </form>
 
+  {% if admin == false %}
   {{forms.delete_button("#{base_path}/kayttaja/poista", "Poista käyttäjätilini")}}
+  }
+  {% endif %}
 
 {% endblock %}
