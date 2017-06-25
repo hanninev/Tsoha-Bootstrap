@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Hallinnoi kategorioita</h1>
-
-<form method="get"><button type="submit" formaction="{{base_path}}/kategoria/lisaa" class="btn btn-default">Lisää uusi kategoria</button></th></form>
-
-<br>
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Kategoria</th>
-        <th>Kuvaus</th>
-        <th></th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
+  
+<h1>Hallinnoi kategorioita</h1>
+<form method="get">
+  <button type="submit" formaction="{{base_path}}/kategoria/lisaa" class="btn btn-default">Lisää uusi kategoria</button>
+</th>undefined</form>undefined<br>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Kategoria</th>
+      <th>Kuvaus</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
 
       {% for category in categories %}
-      <tr>
-        <td>{{category.name}}</td>
-        <td>{{category.description}}</td>
-        <th>{{forms.edit_button("#{base_path}/kategoria/#{category.id}/muokkaa", "Muokkaa")}}</th>
-        <th>{{forms.delete_button("#{base_path}/kategoria/#{category.id}/poista", "Poista")}}</th>
-      </tr>
+      
+    <tr>
+      <td>{{category.name}}</td>
+      <td>{{category.description}}</td>
+      <th>{{forms.edit_button("#{base_path}/kategoria/#{category.id}/muokkaa", "Muokkaa")}}</th>
+      <th>{{forms.delete_button("#{base_path}/kategoria/#{category.id}/poista", "Poista")}}</th>
+    </tr>
     {% endfor %}
 
 

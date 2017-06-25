@@ -1,44 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Muokkaa tuotetta {{attributes.name}}</h1>
-
-  <form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
-    <div class="checkbox">
-      <label>
+  
+<h1>Muokkaa tuotetta {{attributes.name}}</h1>
+<form method="post" action="{{base_path}}/tuote/{{attributes.id}}/muokkaa">
+  <div class="checkbox">
+    <label>
       {% if attributes.available == 1 %}
+      
       <input type="checkbox", name="available", checked>
       {% else %}
-      <input type="checkbox", name="available">
+      
+        <input type="checkbox", name="available">
       {% endif %}
         Myynnissä (poistamalla tämän täpän, voit piilottaa tuotteet käyttäjiltä, mutta säilyttää ne tietokannassa)
-    </div>
-    <div class="form-group">
-      <label>Nimi</label>
-      <input type="text" name="name" class="form-control" value="{{attributes.name}}">
-    </div>
-    <div class="form-group">
-      <label>Hinta</label>
-      <input type="text" name="price" class="form-control" value="{{attributes.price}}">
-    </div>
-    <div class="form-group">
-   <label>Kategoria</label>
-   <select class="form-control" name="category">
-   <option value="{{attributes.category.id}}" selected="selected">{{attributes.category.name}}</option>
+    
+        </div>
+        <div class="form-group">
+          <label>Nimi</label>
+          <input type="text" name="name" class="form-control" value="{{attributes.name}}">
+          </div>
+          <div class="form-group">
+            <label>Hinta</label>
+            <input type="text" name="price" class="form-control" value="{{attributes.price}}">
+            </div>
+            <div class="form-group">
+              <label>Kategoria</label>
+              <select class="form-control" name="category">
+                <option value="{{attributes.category.id}}" selected="selected">{{attributes.category.name}}</option>
     {% for category in categories %}
-      <option value="{{category.id}}">{{category.name}}</option>
+      
+                <option value="{{category.id}}">{{category.name}}</option>
     {% endfor %}
-    </select>
-    </div>
-
-    <div class="form-group">
-      <label>Kuvaus</label>
-      <textarea name="description" class="form-control">{{attributes.description}}
-      </textarea>
-    </div>
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button>       
-    </div>
-  </form>
+    
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Kuvaus</label>
+              <textarea name="description" class="form-control">{{attributes.description}}</textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary">Tallenna</button>
+            </div>
+          </form>
 
 {{forms.delete_button("#{base_path}/tuote/#{attributes.id}/poista", "Poista kaikki tuotteen ilmentymät varastosta")}}
 

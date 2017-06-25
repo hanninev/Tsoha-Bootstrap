@@ -2,17 +2,26 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-  <h1>Omat tietoni</h1>
-
-  <p>
-     <form method="get"><button type="submit" formaction="{{base_path}}/kayttaja/muokkaa" class="btn btn-info">Muokkaa tietojani</button></form>
-  </p>
-
-  <ul>
-    <li><strong>Nimi:</strong> {{user_logged_in.forename}} {{user_logged_in.surname}}</li>
-    <li><strong>Osoite:</strong> {{user_logged_in.address}}, {{user_logged_in.zipcode}} {{user_logged_in.postoffice}}</li>
-    <li><strong>Puhelinnumero:</strong> {{user_logged_in.phonenumber}}</li>
-    <li><strong>Sähköpostiosoite:</strong> {{user_logged_in.email}}</li>
-  </ul>
+  
+<h1>Omat tietoni</h1>
+<p>
+  <form method="get">
+    <button type="submit" formaction="{{base_path}}/kayttaja/muokkaa" class="btn btn-info">Muokkaa tietojani</button>
+  </form>
+</p>
+<ul>
+  <li>
+    <strong>Nimi:</strong> {{user_logged_in.forename}} {{user_logged_in.surname}}
+  </li>
+  <li>
+    <strong>Osoite:</strong> {{user_logged_in.address}}, {{user_logged_in.zipcode}} {{user_logged_in.postoffice}}
+  </li>
+  <li>
+    <strong>Puhelinnumero:</strong> {{user_logged_in.phonenumber}}
+  </li>
+  <li>
+    <strong>Sähköpostiosoite:</strong> {{user_logged_in.email}}
+  </li>
+</ul>
 
 {% endblock %}

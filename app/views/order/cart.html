@@ -2,124 +2,138 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-  <h1>Ostoskorin sisältö</h1>
-
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Nimi</th>
-        <th>Hinta</th>
-        <th></th>
-      </tr>
-    </thead>
-
-    <tbody>
+  
+<h1>Ostoskorin sisältö</h1>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Nimi</th>
+      <th>Hinta</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
       {% for product in products %}
-      <tr>
-        <td><b>{{product.name}}</b></td>
-        <td>{{product.price}}</td>
-        <th>{{forms.remove_from_cart_button("#{base_path}/tuote/#{product.id}/poistaOstoskorista")}}</th>
-      </tr>
+      
+    <tr>
+      <td>
+        <b>{{product.name}}</b>
+      </td>
+      <td>{{product.price}}</td>
+      <th>{{forms.remove_from_cart_button("#{base_path}/tuote/#{product.id}/poistaOstoskorista")}}</th>
+    </tr>
     {% endfor %}
-      <tr>
-        <td><b>KOKONAISHINTA</b></td>
-        <td>{{totalPrice}}</td>
+      
+    <tr>
+      <td>
+        <b>KOKONAISHINTA</b>
+      </td>
+      <td>{{totalPrice}}</td>
       <td></td>
-      </tr>
-    </tbody>
-
-  </table>
-
-      <p><a href="{{base_path}}/" class="btn btn-default">Tee lisää ostoksia</a>   <form method="post"><button type="submit" formaction="{{base_path}}/ostoskori/tyhjenna" class="btn btn-danger">Tyhjennä ostoskori</button></form></p>
+    </tr>
+  </tbody>
+</table>
+<p>
+  <a href="{{base_path}}/" class="btn btn-default">Tee lisää ostoksia</a>
+  <form method="post">
+    <button type="submit" formaction="{{base_path}}/ostoskori/tyhjenna" class="btn btn-danger">Tyhjennä ostoskori</button>
+  </form>
+</p>
 
       {% if not user_logged_in %}
-    <h3>Jos haluat tehdä ostokset kirjautuneena, kirjaudu sisään</h3>
-  <p>Voit tehdä tilauksen myös kirjautumatta täyttämällä toimitustiedot.</p>
-  <form method="post" action="{{base_path}}/ostoskori/login">
-    <div class="form-group">
-      <label>Käyttäjätunnuksena toimiva sähköpostiosoitteesi</label>
-      <input type="text" class="form-control" name="username" value="{{username}}">
+    
+<h3>Jos haluat tehdä ostokset kirjautuneena, kirjaudu sisään</h3>
+<p>Voit tehdä tilauksen myös kirjautumatta täyttämällä toimitustiedot.</p>
+<form method="post" action="{{base_path}}/ostoskori/login">
+  <div class="form-group">
+    <label>Käyttäjätunnuksena toimiva sähköpostiosoitteesi</label>
+    <input type="text" class="form-control" name="username" value="{{username}}">
     </div>
-
     <div class="form-group">
       <label>Salasana</label>
       <input type="password" class="form-control" name="password">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
-  </form>
+      </div>
+      <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    </form>
 
    {% endif %}
 
-  <form method="post" action="{{base_path}}/tilaus">
-    <h3>Toimitustiedot</h3>
+  
+    <form method="post" action="{{base_path}}/tilaus">
+      <h3>Toimitustiedot</h3>
+
+      <div class="form-group">
+        <label>Etunimi</label>
+      {% if attributes.forename %}
+      
+        <input type="text" class="form-control" name="forename" value="{{attributes.forename}}">
+      {% else %}
+      
+          <input type="text" class="form-control" name="forename" value="{{user_logged_in.forename}}">
+      {% endif %}
+      
+      </div>
       
       <div class="form-group">
-      <label>Etunimi</label>
-      {% if attributes.forename %}
-      <input type="text" class="form-control" name="forename" value="{{attributes.forename}}">
-      {% else %}
-      <input type="text" class="form-control" name="forename" value="{{user_logged_in.forename}}">
-      {% endif %}
-      </div>
-
-    <div class="form-group">
-      <label>Sukunimi</label>
+            <label>Sukunimi</label>
       {% if attributes.surname %}
-      <input type="text" class="form-control" name="surname" value="{{attributes.surname}}">
+      
+              <input type="text" class="form-control" name="surname" value="{{attributes.surname}}">
       {% else %}
-      <input type="text" class="form-control" name="surname" value="{{user_logged_in.surname}}">
+      
+              <input type="text" class="form-control" name="surname" value="{{user_logged_in.surname}}">
       {% endif %}
+      
       </div>
-
-    <div class="form-group">
-      <label>Puhelinnumero</label>
+      
+      <div class="form-group">
+            <label>Puhelinnumero</label>
       {% if attributes.phonenumber %}
-      <input type="text" class="form-control" name="phonenumber" value="{{attributes.phonenumber}}">
+            <input type="text" class="form-control" name="phonenumber" value="{{attributes.phonenumber}}">
       {% else %}
-      <input type="text" class="form-control" name="phonenumber" value="{{user_logged_in.phonenumber}}">
+            <input type="text" class="form-control" name="phonenumber" value="{{user_logged_in.phonenumber}}">
       {% endif %}
       </div>
-
-    <div class="form-group">
-      <label>Sähköpostiosoite</label>
+      
+      <div class="form-group">
+            <label>Sähköpostiosoite</label>
       {% if attributes.email %}
-      <input type="text" class="form-control" name="email" value="{{attributes.email}}">
+            <input type="text" class="form-control" name="email" value="{{attributes.email}}">
       {% else %}
-      <input type="text" class="form-control" name="email" value="{{user_logged_in.email}}">
+            <input type="text" class="form-control" name="email" value="{{user_logged_in.email}}">
       {% endif %}
       </div>
 
-        <div class="form-group">
-      <label>Toimitusosoite</label>
+      <div class="form-group">
+            <label>Toimitusosoite</label>
       {% if attributes.delivery_address %}
-      <input type="text" class="form-control" name="delivery_address" value="{{attributes.delivery_address}}">
+            <input type="text" class="form-control" name="delivery_address" value="{{attributes.delivery_address}}">
       {% else %}
-      <input type="text" class="form-control" name="delivery_address" value="{{user_logged_in.delivery_address}}">
+            <input type="text" class="form-control" name="delivery_address" value="{{user_logged_in.delivery_address}}">
       {% endif %}
       </div>
-
-        <div class="form-group">
-      <label>Postinumero</label>
+              
+      <div class="form-group">
+            <label>Postinumero</label>
       {% if attributes.zipcode %}
-      <input type="text" class="form-control" name="zipcode" value="{{attributes.zipcode}}">
+            <input type="text" class="form-control" name="zipcode" value="{{attributes.zipcode}}">
       {% else %}
-      <input type="text" class="form-control" name="zipcode" value="{{user_logged_in.zipcode}}">
-      {% endif %}
+           <input type="text" class="form-control" name="zipcode" value="{{user_logged_in.zipcode}}">
+      {% endif %}  
       </div>
-
-    <div class="form-group">
-      <label>Postitoimipaikka</label>
+              
+      <div class="form-group">
+           <label>Postitoimipaikka</label>
       {% if attributes.postoffice %}
-      <input type="text" class="form-control" name="postoffice" value="{{attributes.postoffice}}">
+            <input type="text" class="form-control" name="postoffice" value="{{attributes.postoffice}}">
       {% else %}
-      <input type="text" class="form-control" name="postoffice" value="{{user_logged_in.postoffice}}">
+            <input type="text" class="form-control" name="postoffice" value="{{user_logged_in.postoffice}}">
       {% endif %}
       </div>
-
-    <div class="form-group">
-      <button type="submit" name="submit" class="btn btn-primary">Tee tilaus</button>
-    </div>
-  </form>
+                 
+      <div class="form-group">
+            <button type="submit" name="submit" class="btn btn-primary">Tee tilaus</button>
+      </div>
+</form>
 
 {% endblock %}

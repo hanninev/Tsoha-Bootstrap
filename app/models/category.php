@@ -8,7 +8,11 @@ class Category extends BaseModel
     public function __construct($attributes)
     {
         parent::__construct($attributes);
-                $this->validators = array('validate_name', 'validate_description', 'validate_no_dublicate_category_name');
+        $this->validators = array(
+            'validate_name',
+            'validate_description',
+            'validate_no_dublicate_category_name'
+        );
     }
     
     public static function list() {
@@ -25,7 +29,7 @@ class Category extends BaseModel
             ));
         }
     
-        return $categories;
+    return $categories;
     }
     
     public static function show($id)
@@ -70,23 +74,23 @@ class Category extends BaseModel
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description
-            ));
+        ));
         $row = $query->fetch();
     }
-
+    
     public function validate_no_dublicate_category_name()
     {
         return self::validate_no_dublicate_value('kategoria', 'Category', 'name');
     }
-
+    
     public function destroy()
     {
-
-            $query = DB::connection()->prepare('DELETE FROM Category WHERE id = :id');
-            $query->execute(array(
-                'id' => $this->id
-            ));
-            $row = $query->fetch();
-        }
-
+        
+        $query = DB::connection()->prepare('DELETE FROM Category WHERE id = :id');
+        $query->execute(array(
+            'id' => $this->id
+        ));
+        $row = $query->fetch();
+    }
+    
 }

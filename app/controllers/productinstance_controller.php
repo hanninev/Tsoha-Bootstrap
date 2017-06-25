@@ -11,14 +11,14 @@ class ProductInstanceController extends BaseController
         
         $category = '';
         if (isset($_SESSION['category'])) {
-           $category .= '?category=' . $_SESSION['category'];
+            $category .= '?category=' . $_SESSION['category'];
         }
-
-
+        
+        
         if (count($errors) > 0) {
             $products = Product::list();
             
-        Redirect::to('/' . $category, array(
+            Redirect::to('/' . $category, array(
                 'errors' => $errors
             ));
         } else {
@@ -46,10 +46,10 @@ class ProductInstanceController extends BaseController
         if ($params['count'] == ProductInstance::howManyLeft($product_id)) {
             ProductController::destroy($product_id);
         }
-
+        
         $category = '';
         if (isset($_SESSION['category'])) {
-           $category .= '?category=' . $_SESSION['category'];
+            $category .= '?category=' . $_SESSION['category'];
         }
         
         $errors = array();

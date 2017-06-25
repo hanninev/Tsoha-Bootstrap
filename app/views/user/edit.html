@@ -1,48 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Muokkaa omia tietojani</h1>
-
-  <form method="post" action="{{base_path}}/kayttaja/muokkaa/laheta">
-    <div class="form-group">
-      <label>Etunimi</label>
-      <input type="text" class="form-control" name="forename" value="{{attributes.forename}}">
+  
+<h1>Muokkaa omia tietojani</h1>
+<form method="post" action="{{base_path}}/kayttaja/muokkaa/laheta">
+  <div class="form-group">
+    <label>Etunimi</label>
+    <input type="text" class="form-control" name="forename" value="{{attributes.forename}}">
     </div>
     <div class="form-group">
       <label>Sukunimi</label>
       <input type="text" class="form-control" name="surname" value="{{attributes.surname}}">
-    </div>
-    <div class="form-group">
-      <label>Puhelinnumero</label>
-      <input type="text" class="form-control" name="phonenumber" value="{{attributes.phonenumber}}">
-    </div>
+      </div>
+      <div class="form-group">
+        <label>Puhelinnumero</label>
+        <input type="text" class="form-control" name="phonenumber" value="{{attributes.phonenumber}}">
+        </div>
         <div class="form-group">
-      <label>Sähköpostiosoite</label>
-      <input type="text" class="form-control" name="email" value="{{attributes.email}}">
-    </div>
-
-        <div class="form-group">
-      <label>Kotiosoite</label>
-      <input type="text" class="form-control" name="address" value="{{attributes.address}}">
-    </div>
-        <div class="form-group">
-      <label>Postinumero</label>
-      <input type="text" class="form-control" name="zipcode" value="{{attributes.zipcode}}">
-    </div>
-       <div class="form-group">
-      <label>Postitoimipaikka</label>
-      <input type="text" class="form-control" name="postoffice" value="{{attributes.postoffice}}">
-    </div>
-
-
-    <div class="form-group">
-      <label>Salanana (voit vaihtaa salasanasi kirjoittamalla tähän uuden, muussa tapauksessa anna nykyinen salasanasi)</label>
-      <input type="text" class="form-control" name="password" value="">
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Tallenna</button>
-    </div>
-  </form>
+          <label>Sähköpostiosoite</label>
+          <input type="text" class="form-control" name="email" value="{{attributes.email}}">
+          </div>
+          <div class="form-group">
+            <label>Kotiosoite</label>
+            <input type="text" class="form-control" name="address" value="{{attributes.address}}">
+            </div>
+            <div class="form-group">
+              <label>Postinumero</label>
+              <input type="text" class="form-control" name="zipcode" value="{{attributes.zipcode}}">
+              </div>
+              <div class="form-group">
+                <label>Postitoimipaikka</label>
+                <input type="text" class="form-control" name="postoffice" value="{{attributes.postoffice}}">
+                </div>
+                <div class="form-group">
+                  <label>Salanana (voit vaihtaa salasanasi kirjoittamalla tähän uuden, muussa tapauksessa anna nykyinen salasanasi)</label>
+                  <input type="text" class="form-control" name="password" value="">
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Tallenna</button>
+                  </div>
+                </form>
 
   {{forms.delete_button("#{base_path}/kayttaja/poista", "Poista käyttäjätilini")}}
 

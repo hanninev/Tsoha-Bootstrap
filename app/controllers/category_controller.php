@@ -1,15 +1,16 @@
 <?php
 
-  class CategoryController extends BaseController{
-
+class CategoryController extends BaseController
+{
+    
     public static function list(){
         $products = Product::list();
         $categories = Category::list();
         View::make('category/list.html', array(
-            'categories' => $categories
+        'categories' => $categories
         ));
     }
-
+    
     public static function store()
     {
         self::check_admin();
@@ -20,8 +21,8 @@
             'description' => $params['description']
         );
         
-        $category = new Category($attributes);   
-        $errors = $category->errors();
+        $category = new Category($attributes);
+        $errors   = $category->errors();
         
         if (count($errors) == 0) {
             $category->save();
@@ -34,15 +35,14 @@
             View::make('category/add.html', array(
                 'errors' => $errors,
                 'attributes' => $attributes
-                ));
+            ));
         }
     }
     
     public static function create()
     {
         self::check_admin();
-        View::make('category/add.html', array(
-        ));
+        View::make('category/add.html', array());
     }
     
     public static function edit($id)
@@ -65,8 +65,8 @@
             'description' => $params['description']
         );
         
-        $category   = new Category($attributes);
-        $errors = $category->errors();
+        $category = new Category($attributes);
+        $errors   = $category->errors();
         
         if (count($errors) > 0) {
             View::make('category/edit.html', array(
@@ -80,7 +80,7 @@
             ));
         }
     }
-
+    
     public static function destroy($id)
     {
         self::check_admin();
@@ -94,5 +94,5 @@
             'message' => 'Kategoria on poistettu onnistuneesti!'
         ));
     }
-
-  }
+    
+}

@@ -2,9 +2,9 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-  <h1>{{product.name}}</h1>
-
-  <p>
+  
+<h1>{{product.name}}</h1>
+<p>
     {{forms.add_to_cart_button("#{base_path}/tuote/#{product.id}/lisaaOstoskoriin")}}
 
     {% if admin %}
@@ -13,18 +13,26 @@
   </p>
 
     {% if product.available %}
-    <span class="label label-success">Myynnissä</span>
+    
+<span class="label label-success">Myynnissä</span>
     {% else %}
-    <span class="label label-danger">Ei myynnissä</span>
+    
+<span class="label label-danger">Ei myynnissä</span>
     {% endif %}
 
-  <ul>
-    <li><strong>Hinta:</strong> {{product.price}}</li>
-    <li><strong>Varastossa:</strong> {{product.count}}</li>
-    <li><strong>Kategoria:</strong> {{product.category.name}}</li>
-  </ul>
-
-  <p>
+  
+<ul>
+  <li>
+    <strong>Hinta:</strong> {{product.price}}
+  </li>
+  <li>
+    <strong>Varastossa:</strong> {{product.count}}
+  </li>
+  <li>
+    <strong>Kategoria:</strong> {{product.category.name}}
+  </li>
+</ul>
+<p>
   {{product.description}}
   </p>
 {% endblock %}

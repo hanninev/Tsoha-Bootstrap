@@ -136,9 +136,9 @@ class User extends BaseModel
         ));
         $row = $query->fetch();
     }
-
+    
     public function validate_no_dublicate_email()
     {
-    return self::validate_no_dublicate_value('sähköpostiosoite', 'User1', 'email');
+        return self::validate_no_dublicate_value('sähköpostiosoite', 'User1', 'email');
     }
 }

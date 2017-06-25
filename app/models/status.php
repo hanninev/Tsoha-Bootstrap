@@ -17,12 +17,12 @@ class Status extends BaseModel
         $orders = array();
     
         foreach ($rows as $row) {
-            $statuses[] = new Order(array(
+            $statuses[] = new Status(array(
             'id' => $row['id'],
             'name' => $row['name']
             ));
-            }
-        return $statuses;
+        }
+    return $statuses;
     }
     
     public static function show($id)

@@ -6,22 +6,24 @@ class ProductController extends BaseController
     public static function index()
     {
         $categories = Category::list();
-        $params = $_GET;
-        $options = array();
+        $params           = $_GET;
+        $options          = array();
         $current_category = array();
-
+        
         if (isset($params['category']) && filter_var($params['category'], FILTER_VALIDATE_INT)) {
-            $options['category'] = $params['category'];
-            $current_category = Category::show($params['category']);
+            $options['category']  = $params['category'];
+            $current_category     = Category::show($params['category']);
             $_SESSION['category'] = $params['category'];
         } elseif (isset($_SESSION['category'])) {
             $_SESSION['category'] = null;
         }
-
+        
         $products = Product::listWithSearch($options);
-
+        
         View::make('index.html', array(
-            'products' => $products, 'categories' => $categories, 'current_category' => $current_category
+            'products' => $products,
+            'categories' => $categories,
+            'current_category' => $current_category
         ));
     }
     

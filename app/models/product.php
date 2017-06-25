@@ -21,36 +21,36 @@ class Product extends BaseModel
         $options = array();
         self::listWithSearch($options);
     }
-
-
-    public static function listWithSearch($options) {
+    
+    public static function listWithSearch($options)
+    {
         $category = '';
-        if(isset($options['category'])){
-          $category .= ' AND Product.category_id = :category';
+        if (isset($options['category'])) {
+            $category .= ' AND Product.category_id = :category';
         }
-
+        
         $query_string = 'SELECT Product.id, Product.category_id, Product.name, Product.description, Product.price, Product.available FROM Product LEFT JOIN Category ON Product.category_id = Category.id WHERE Product.available AND Product.id IN (SELECT Product_id FROM ProductInstance WHERE Order1_id IS NULL' . $category . ')';
-
+        
         $query = DB::connection()->prepare($query_string);
         $query->execute($options);
-        $rows = $query->fetchAll();
+        $rows     = $query->fetchAll();
         $products = array();
-    
+        
         foreach ($rows as $row) {
             $products[] = new Product(array(
-            'id' => $row['id'],
-            'category' => Category::show($row['category_id']),
-            'name' => $row['name'],
-            'description' => $row['description'],
-            'price' => $row['price'],
-            'available' => $row['available'],
-            'count' => ProductInstance::howManyLeft($row['id'])
+                'id' => $row['id'],
+                'category' => Category::show($row['category_id']),
+                'name' => $row['name'],
+                'description' => $row['description'],
+                'price' => $row['price'],
+                'available' => $row['available'],
+                'count' => ProductInstance::howManyLeft($row['id'])
             ));
-            }
-
+        }
+        
         return $products;
     }
-
+    
     public static function show($id)
     {
         $query = DB::connection()->prepare('SELECT * FROM Product WHERE id = :id LIMIT 1');
@@ -84,7 +84,7 @@ class Product extends BaseModel
             'description' => $this->description,
             'price' => $this->price,
             'available' => $this->available
-            ));
+        ));
         $row      = $query->fetch();
         $this->id = $row['id'];
     }
@@ -142,10 +142,10 @@ class Product extends BaseModel
         }
         return $errors;
     }
- 
+    
     public function validate_no_dublicate_product_name()
     {
         return self::validate_no_dublicate_value('tuote', 'Product', 'name');
     }
-
+    
 }

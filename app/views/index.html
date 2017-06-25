@@ -2,59 +2,76 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-   <p>Tervetuloa verkkokauppaan</p>
-
-  <h1>Saatavilla olevat tuotteet</h1>
-
-      <label>Valitse kategoria</label>
-  <form method="get" action="{{base_path}}/?cateogory/{{category.id}}">
-   <select name="category">
-      <option value="{{current_category.id}}" selected="selected">{{current_category.name}}</option>
+   
+<p>Tervetuloa verkkokauppaan</p>
+<h1>Saatavilla olevat tuotteet</h1>
+<label>Valitse kategoria</label>
+<form method="get" action="{{base_path}}/?cateogory/{{category.id}}">
+  <select name="category">
+    <option value="{{current_category.id}}" selected="selected">{{current_category.name}}</option>
     <option value="">Kaikki kategoriat</option>
     {% for category in categories %}
-      <option value="{{category.id}}">{{category.name}}</option>
+      
+    <option value="{{category.id}}">{{category.name}}</option>
     {% endfor %}
-    </select>
-    <div class="form-group">
-      <button type="submit" name="" class="btn btn-primary">Hae tuotteita</button>
-    </div>
-    </form>
-
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Tuote</th>
-        <th>Hinta</th>
-        <th></th>
+    
+  </select>
+  <div class="form-group">
+    <button type="submit" name="" class="btn btn-primary">Hae tuotteita</button>
+  </div>
+</form>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Tuote</th>
+      <th>Hinta</th>
+      <th></th>
          {% if admin %}
-        <th>Varastossa</th>
-        <th>Lisää tai poista tuotteita (lukumäärä)</th>
+        
+      <th>Varastossa</th>
+      <th>Lisää tai poista tuotteita (lukumäärä)</th>
         {% endif %}
-      </tr>
-    </thead>
-
-    <tbody>
+      
+    </tr>
+  </thead>
+  <tbody>
     
       {% for product in products %}
-      <tr>
-        <td>
+      
+    <tr>
+      <td>
         <table>
-        <tr><b><a href="{{base_path}}/tuote/{{product.id}}">{{product.name}}</a></b></tr>
-        <tr><p>{{product.description}}</p></tr>
-        <tr>Kategoria: <i>{{product.category.name}}</i></tr>
+          <tr>
+            <b>
+              <a href="{{base_path}}/tuote/{{product.id}}">{{product.name}}</a>
+            </b>
+          </tr>
+          <tr>
+            <p>{{product.description}}</p>
+          </tr>
+          <tr>Kategoria: 
+            <i>{{product.category.name}}</i>
+          </tr>
         </table>
-        </td>
-        <td>{{product.price}}</td>
-        <th>{{forms.add_to_cart_button("#{base_path}/tuote/#{product.id}/lisaaOstoskoriin")}}</th>
+      </td>
+      <td>{{product.price}}</td>
+      <th>{{forms.add_to_cart_button("#{base_path}/tuote/#{product.id}/lisaaOstoskoriin")}}</th>
         {% if admin %}
-        <th>{{product.count}}</th>
-        <th><form method="post">
-        <input type="text" name="count" class="form-control" value=""> <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/lisaa" class="btn btn-primary">Lisää</button>
-        <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/poistalukumaara" class="btn btn-danger">Poista</button></form></th>
+        
+      <th>{{product.count}}</th>
+      <th>
+        <form method="post">
+          <input type="text" name="count" class="form-control" value="">
+            <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/lisaa" class="btn btn-primary">Lisää</button>
+            <button type="submit" formaction="{{base_path}}/tuote/{{product.id}}/poistalukumaara" class="btn btn-danger">Poista</button>
+          </form>
+        </th>
         {% endif %}
+      
       </tr>
       {% endfor %}
 
+    
     </tbody>
   </table>
 {% endblock %}

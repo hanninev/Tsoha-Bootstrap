@@ -100,13 +100,13 @@ class OrderController extends BaseController
         } else {
             array_push($_SESSION['cart'], $id);
         }
-
-
+        
+        
         $category = '';
         if (isset($_SESSION['category'])) {
             $category .= '?category=' . $_SESSION['category'];
         }
-
+        
         Redirect::to('/' . $category, array(
             'message' => 'Tuote ' . $product->name . ' on lisätty ostoskoriisi.'
         ));
@@ -154,7 +154,6 @@ class OrderController extends BaseController
                 'attributes' => $attributes
             ));
         }
-    }
-    
+    }    
     
 }

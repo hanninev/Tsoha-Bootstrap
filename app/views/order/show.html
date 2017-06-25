@@ -1,59 +1,86 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Tilaus</h1>
-  <ul>
-    <li><strong>Tilausnumero:</strong> {{order.id}}</li>
-    <li><strong>Asiakas:</strong> {{order.forename}} {{order.surname}}</li>
-    <li><strong>Toimitusosoite:</strong> {{order.delivery_address}}, {{order.zipcode}} {{order.postoffice}}</li>
-    <li><strong>Puhelinnumero:</strong> {{order.phonenumber}}</li>
-    <li><strong>Sähköpostiosoite:</strong> {{order.email}}</li>
-
-    <li><strong>Status:</strong>         
+  
+<h1>Tilaus</h1>
+<ul>
+  <li>
+    <strong>Tilausnumero:</strong> {{order.id}}
+  </li>
+  <li>
+    <strong>Asiakas:</strong> {{order.forename}} {{order.surname}}
+  </li>
+  <li>
+    <strong>Toimitusosoite:</strong> {{order.delivery_address}}, {{order.zipcode}} {{order.postoffice}}
+  </li>
+  <li>
+    <strong>Puhelinnumero:</strong> {{order.phonenumber}}
+  </li>
+  <li>
+    <strong>Sähköpostiosoite:</strong> {{order.email}}
+  </li>
+  <li>
+    <strong>Status:</strong>         
         {% if order.status.id == 1 %}
-        <span class="label label-warning"> käsitellään
+        
+    <span class="label label-warning"> käsitellään
         {% elseif order.status.id == 2 %}
-        <span class="label label-success"> toimitettu
+        
+      <span class="label label-success"> toimitettu
         {% elseif order.status.id == 3 %}
+        
         <span class="label label-success"> hylätty
         {% else %}
-        <span class="label label-info">
-        {% endif %}</li>
-  </ul> {% if admin %}
+        
+          <span class="label label-info">
+        {% endif %}
+          </li>
+        </ul> {% if admin %}
         {% if order.status.id != 2 %}
-          <p>{{forms.mark_to_delivered_button("#{base_path}/tilaukset/#{order.id}/toimitetuksi")}}
+          
+        <p>{{forms.mark_to_delivered_button("#{base_path}/tilaukset/#{order.id}/toimitetuksi")}}
         {% endif %}
         {% if order.status.id != 3 %} 
-          <form method="post"><button type="submit" formaction="{{base_path}}/tilaukset/{{order.id}}/hylkaa" class="btn btn-danger">Hylkää tilaus</button></form> 
+          
+          <form method="post">
+            <button type="submit" formaction="{{base_path}}/tilaukset/{{order.id}}/hylkaa" class="btn btn-danger">Hylkää tilaus</button>
+          </form> 
         {% endif %}
         {% if order.status.id != 1 %}
-          <form method="post"><button type="submit" formaction="{{base_path}}/tilaukset/{{order.id}}/kasittelyyn" class="btn btn-warning">Takaisin käsiteltäväksi</button></form>
+          
+          <form method="post">
+            <button type="submit" formaction="{{base_path}}/tilaukset/{{order.id}}/kasittelyyn" class="btn btn-warning">Takaisin käsiteltäväksi</button>
+          </form>
         {% endif %}
         {% endif %}
-  </p></nobr>
-
-  <h1>Tilauksen sisältö</h1>
-
-  <table class="table table-striped table-bordered">
-    <thead>
-      <tr>
-        <th>Nimi</th>
-        <th>Hinta</th>
-      </tr>
-    </thead>
-
-    <tbody>
+  
+        </p>
+      </nobr>
+      <h1>Tilauksen sisältö</h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Nimi</th>
+            <th>Hinta</th>
+          </tr>
+        </thead>
+        <tbody>
       {% for instance in productInstances %}
-      <tr>
-        <td><b>{{instance.product.name}}</b></td>
-        <td>{{instance.price}}</td>
-      </tr>
+      
+          <tr>
+            <td>
+              <b>{{instance.product.name}}</b>
+            </td>
+            <td>{{instance.price}}</td>
+          </tr>
     {% endfor %}
-      <tr>
-        <td><b>KOKONAISHINTA</b></td>
-        <td>{{order.totalprice}}</td>
-      </tr>
-    </tbody>
-
-  </table>
+      
+          <tr>
+            <td>
+              <b>KOKONAISHINTA</b>
+            </td>
+            <td>{{order.totalprice}}</td>
+          </tr>
+        </tbody>
+      </table>
 
 {% endblock %}
