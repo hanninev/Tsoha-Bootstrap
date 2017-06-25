@@ -14,5 +14,5 @@ Kun käyttäjä on tehnyt tilauksen, tilatut tuotteet varataan kyseiselle käytt
 ### Sisäänkirjautuminen:
 * [Sisäänkirjautuminen](http://hanninev.users.cs.helsinki.fi/kauppa/login)
 - Ylläpitäjän käyttäjätunnus: admin@admin.com / salasana: admin
-- Käyttäjän käyttäjätunnus: user@user.com / salasana: user
+- Käyttäjän käyttäjätunnus: user@user.com / salasana: useri
 
